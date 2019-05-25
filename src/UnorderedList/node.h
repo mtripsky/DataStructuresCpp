@@ -10,7 +10,7 @@ namespace lists {
 
 template <typename T>
 struct Node{
-    Node(T data) : data{data}, next{nullptr} {}
+    Node(T data) : data(data), next(nullptr) {}
     //~Node() { std::cout << "Destroy node with data: " << data << '\n'; }
 
     T data;
