@@ -135,25 +135,26 @@ SCENARIO( "testing UnorderedList Remove method with int as data" ) {
         }
     }
 
-    GIVEN( " list with three nodes" ) {
-        auto sut = UnorderedList<int>();  // 3->2->1
+    GIVEN( " list with four nodes" ) {
+        auto sut = UnorderedList<int>();  // 4->3->2->1
         sut.push(1);
         sut.push(2);
         sut.push(3);
+        sut.push(4);
 
         std::cout << "BEFORE: " << std::endl;
         sut.print();
 
-        WHEN( "remove data: 4 from the list" ) {
-            auto result = sut.remove(4);
+        WHEN( "remove data: 5 from the list" ) {
+            auto result = sut.remove(5);
 
-            std::cout << "After remove(4): " << std::endl;
+            std::cout << "After remove(5): " << std::endl;
             sut.print();
 
-            THEN( "it should not remove anything and should return false (front: 3, back 1)" ) {
-                REQUIRE( sut.size() == 3);
+            THEN( "it should not remove anything and should return false (front: 4, back 1)" ) {
+                REQUIRE( sut.size() == 4);
                 REQUIRE( sut.back()->data == 1);
-                REQUIRE( sut.front()->data == 3);
+                REQUIRE( sut.front()->data == 4);
                 REQUIRE( result == false);
             }
         }
@@ -164,10 +165,10 @@ SCENARIO( "testing UnorderedList Remove method with int as data" ) {
             std::cout << "After remove(1): " << std::endl;
             sut.print();
 
-            THEN( "it should remove node with data:1, should return true, and list with size 2 (front: 3, back 2)" ) {
-                REQUIRE( sut.size() == 2);
+            THEN( "it should remove node with data:1, should return true, and list with size 3 (front: 4, back 2)" ) {
+                REQUIRE( sut.size() == 3);
                 REQUIRE( sut.back()->data == 2);
-                REQUIRE( sut.front()->data == 3);
+                REQUIRE( sut.front()->data == 4);
                 REQUIRE( result == true);
             }
         }
@@ -178,24 +179,38 @@ SCENARIO( "testing UnorderedList Remove method with int as data" ) {
             std::cout << "After remove(2): " << std::endl;
             sut.print();
 
-            THEN( "it should remove node with data:2, should return true, and list with size 2 (front: 3, back 1)" ) {
-                REQUIRE( sut.size() == 2);
+            THEN( "it should remove node with data:2, should return true, and list with size 3 (front: 4, back 1)" ) {
+                REQUIRE( sut.size() == 3);
                 REQUIRE( sut.back()->data == 1);
-                REQUIRE( sut.front()->data == 3);
+                REQUIRE( sut.front()->data == 4);
                 REQUIRE( result == true);
             }
         }
 
-        WHEN( "remove data: 2 from the list" ) {
+        WHEN( "remove data: 3 from the list" ) {
             auto result = sut.remove(3);
 
             std::cout << "After remove(3): " << std::endl;
             sut.print();
 
-            THEN( "it should remove node with data:3, should return true, and list with size 2 (front: 2, back 1)" ) {
-                REQUIRE( sut.size() == 2);
+            THEN( "it should remove node with data:3, should return true, and list with size 3 (front: 4, back 1)" ) {
+                REQUIRE( sut.size() == 3);
                 REQUIRE( sut.back()->data == 1);
-                REQUIRE( sut.front()->data == 2);
+                REQUIRE( sut.front()->data == 4);
+                REQUIRE( result == true);
+            }
+        }
+
+        WHEN( "remove data: 4 from the list" ) {
+            auto result = sut.remove(4);
+
+            std::cout << "After remove(4): " << std::endl;
+            sut.print();
+
+            THEN( "it should remove node with data:4, should return true, and list with size 3 (front: 3, back 1)" ) {
+                REQUIRE( sut.size() == 3);
+                REQUIRE( sut.back()->data == 1);
+                REQUIRE( sut.front()->data == 3);
                 REQUIRE( result == true);
             }
         }
