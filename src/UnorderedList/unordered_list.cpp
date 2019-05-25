@@ -54,7 +54,7 @@ bool dsc::lists::UnorderedList<T>::remove(const T& data)
         {
             if(temp->next->next)
             {
-                temp->next = std::move(temp->next->next);
+                temp->next = temp->next->next;
                 --size();
 
                 return true;
@@ -69,7 +69,7 @@ bool dsc::lists::UnorderedList<T>::remove(const T& data)
             }
         }
 
-        temp = std::move(temp->next);
+        temp = temp->next;
     }
 
     return false;
