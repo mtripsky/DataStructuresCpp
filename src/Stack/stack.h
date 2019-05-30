@@ -1,74 +1,74 @@
-#ifndef Queue_Queue_h
-#define Queue_Queue_h
+#ifndef Stack_Stack_h
+#define Stack_Stack_h
 
 #include <iostream>
 
 
 namespace dsc {
-namespace fifo {
+namespace lifo {
 
 template <typename T>
-class Queue {
+class Stack {
 public:
     // -------------------------------------------------------------------------
     // CONSTRUCTORS
     // -------------------------------------------------------------------------
-    Queue(std::size_t maxSize) noexcept : m_maxSize(maxSize), m_size(0), m_front(0), m_rear(0)
+    Stack(std::size_t maxSize) noexcept : m_maxSize(maxSize), m_size(0), m_top(0)
     {
-        m_queue = new T[maxSize + 1];
+        m_stack = new T[maxSize + 1];
     }
 
     // -------------------------------------------------------------------------
     // DESTRUCTORS
     // -------------------------------------------------------------------------
-    ~Queue()
+    ~Stack()
     {
-        delete[] m_queue;
+        delete[] m_stack;
     }
 
     // -------------------------------------------------------------------------
     // METHODS
     // -------------------------------------------------------------------------
-    bool enqueue(const T& elem)
+    bool push(const T& elem)
     {
         if(isFull())
             return false;
 
-        if(m_rear + 1 > m_maxSize)
+        if(m_top + 1 > m_maxSize)
         {
-            m_rear = 0;
-            m_queue[m_rear] = elem;
+            m_top = 0;
+            m_stack[m_top] = elem;
         }
         else
         {
-            m_queue[m_rear] = elem;
+            m_stack[m_top] = elem;
         }
-        ++m_rear;
+        ++m_top;
         ++updateSize();
 
         return true;
     }
 
-    bool dequeue()
+    bool pop()
     {
         if(isEmpty())
         {
             return false;
         }
         --updateSize();
-        m_front = m_front + 1 > m_maxSize - 1 ? 0 : ++m_front;
+        --m_top;
 
         return true;
     }
 
-    const T& front() const
+    const T& top() const
     {
         if(isEmpty())
         {
-            throw "Queue is empty";
+            throw "Stack is empty";
         }
 
-        return m_queue[m_front];
+        return m_stack[m_top - 1];
     }
 
     const bool isEmpty() const
@@ -89,16 +89,16 @@ public:
     void print()
     {
         if(isEmpty())
-            std::cout << "Queue is empty\n";
+            std::cout << "Stack is empty\n";
         else
         {
-            auto index = m_front;
+            auto index = m_top - 1;
 
             for(auto i = 0; i < size(); ++i)
             {
-                index = index + 1 > m_maxSize ? 0 : index;
-                std::cout << m_queue[index] << "->";
-                ++index;
+                index = index < 0 ? m_maxSize-1 : index;
+                std::cout << m_stack[index] << "->";
+                --index;
             }
             std::cout << std::endl;
         }
@@ -118,12 +118,11 @@ private:
     // -------------------------------------------------------------------------
     std::size_t m_maxSize;
     std::size_t m_size;
-    int m_front;
-    int m_rear;
-    T *m_queue;
+    int m_top;
+    T *m_stack;
 };
 
-}  // namespace fifo
+}  // namespace lifo
 }  // namespace dsc
 
-#endif  // Queue_Queue_h
+#endif  // Stack_Stack_h
