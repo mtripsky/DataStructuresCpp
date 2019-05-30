@@ -142,13 +142,13 @@ SCENARIO( "testing UnorderedList Remove method with int as data" ) {
         sut.push(3);
         sut.push(4);
 
-        std::cout << "BEFORE: " << std::endl;
+        std::cout << "UnorderedList BEFORE: " << std::endl;
         sut.print();
 
         WHEN( "remove data: 5 from the list" ) {
             auto result = sut.remove(5);
 
-            std::cout << "After remove(5): " << std::endl;
+            std::cout << "UnorderedList After remove(5): " << std::endl;
             sut.print();
 
             THEN( "it should not remove anything and should return false (front: 4, back 1)" ) {
@@ -162,7 +162,7 @@ SCENARIO( "testing UnorderedList Remove method with int as data" ) {
         WHEN( "remove data: 1 from the list" ) {
             auto result = sut.remove(1);
 
-            std::cout << "After remove(1): " << std::endl;
+            std::cout << "UnorderedList After remove(1): " << std::endl;
             sut.print();
 
             THEN( "it should remove node with data:1, should return true, and list with size 3 (front: 4, back 2)" ) {
@@ -176,7 +176,7 @@ SCENARIO( "testing UnorderedList Remove method with int as data" ) {
         WHEN( "remove data: 2 from the list" ) {
             auto result = sut.remove(2);
 
-            std::cout << "After remove(2): " << std::endl;
+            std::cout << "UnorderedList After remove(2): " << std::endl;
             sut.print();
 
             THEN( "it should remove node with data:2, should return true, and list with size 3 (front: 4, back 1)" ) {
@@ -190,7 +190,7 @@ SCENARIO( "testing UnorderedList Remove method with int as data" ) {
         WHEN( "remove data: 3 from the list" ) {
             auto result = sut.remove(3);
 
-            std::cout << "After remove(3): " << std::endl;
+            std::cout << "UnorderedList After remove(3): " << std::endl;
             sut.print();
 
             THEN( "it should remove node with data:3, should return true, and list with size 3 (front: 4, back 1)" ) {
@@ -204,7 +204,7 @@ SCENARIO( "testing UnorderedList Remove method with int as data" ) {
         WHEN( "remove data: 4 from the list" ) {
             auto result = sut.remove(4);
 
-            std::cout << "After remove(4): " << std::endl;
+            std::cout << "UnorderedList After remove(4): " << std::endl;
             sut.print();
 
             THEN( "it should remove node with data:4, should return true, and list with size 3 (front: 3, back 1)" ) {
