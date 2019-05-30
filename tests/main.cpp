@@ -10,3 +10,4 @@
 #include "../libs/catch.hpp"
 #include "UnorderedListTests/unordered_list_tests.cpp"
 #include "QueueTests/queue_tests.cpp"
+#include "StackTests/stack_tests.cpp"
