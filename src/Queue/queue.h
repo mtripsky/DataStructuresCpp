@@ -2,8 +2,6 @@
 #define Queue_Queue_h
 
 #include <iostream>
-#include <algorithm>
-#include <iterator>
 
 
 namespace dsc {
