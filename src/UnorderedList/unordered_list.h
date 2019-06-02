@@ -5,65 +5,69 @@
 #include <memory>
 #include "node.h"
 
-namespace dsc{
+
+namespace dsc {
 namespace lists {
 
-template <typename T>
-class UnorderedList
-{
+template<typename T>
+class UnorderedList {
 public:
-    // -------------------------------------------------------------------------
-    // CONSTRUCTORS
-    // -------------------------------------------------------------------------
-    UnorderedList() noexcept : m_head(nullptr), m_tail(nullptr), m_size(0)
-    {
-    }
+	// -------------------------------------------------------------------------
+	// CONSTRUCTORS
+	// -------------------------------------------------------------------------
+	UnorderedList() noexcept
+		: m_head(nullptr)
+		, m_tail(nullptr)
+		, m_size(0)
+	{
+	}
 
-    // -------------------------------------------------------------------------
-    // DESTRUCTORS
-    // -------------------------------------------------------------------------
-    ~UnorderedList()
-    {
-        clean();
-    }
+	// -------------------------------------------------------------------------
+	// DESTRUCTORS
+	// -------------------------------------------------------------------------
+	~UnorderedList()
+	{
+		clean();
+	}
 
-    // -------------------------------------------------------------------------
-    // METHODS
-    // -------------------------------------------------------------------------
-    bool push(const T& data);
-    bool pop();
-    bool remove(const T& data);
-    const Node<T>* back() const;
-    const Node<T>* front() const;
-    void print() const;
+	// -------------------------------------------------------------------------
+	// METHODS
+	// -------------------------------------------------------------------------
+	bool push(const T& data);
+	bool pop();
+	bool remove(const T& data);
+	const Node<T>* back() const;
+	const Node<T>* front() const;
+	void print() const;
 
-    size_t& size()
-    {
-        return m_size;
-    }
+	size_t& size()
+	{
+		return m_size;
+	}
 
-    const bool isEmpty() const
-    {
-        return m_head == nullptr;
-    }
+	const bool isEmpty() const
+	{
+		return m_head == nullptr;
+	}
 
 private:
-    // -------------------------------------------------------------------------
-    // AUXILARY METHODS
-    // -------------------------------------------------------------------------
-    void clean() {
-          while(m_head) {
-              m_head = std::move(m_head->next);
-          }
-          m_tail = m_head;
-     }
+	// -------------------------------------------------------------------------
+	// AUXILARY METHODS
+	// -------------------------------------------------------------------------
+	void clean()
+	{
+		while(m_head) {
+			m_head = std::move(m_head->next);
+		}
+		m_tail = m_head;
+	}
 
-    // -------------------------------------------------------------------------
-    // DATA
-    // -------------------------------------------------------------------------
-    std::shared_ptr<Node<T>> m_head;
-    std::shared_ptr<Node<T>> m_tail;
-    std::size_t m_size;
+	// -------------------------------------------------------------------------
+	// DATA
+	// -------------------------------------------------------------------------
+	std::shared_ptr<Node<T>> m_head;
+	std::shared_ptr<Node<T>> m_tail;
+	std::size_t m_size;
 };
 
 }  // namespace lists

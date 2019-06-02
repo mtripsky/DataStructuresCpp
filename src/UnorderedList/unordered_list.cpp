@@ -1,100 +1,93 @@
-#include "unordered_list.h"
 #include "node.h"
+#include "unordered_list.h"
 
-template <typename T>
+template<typename T>
 bool dsc::lists::UnorderedList<T>::push(const T& data)
 {
-    auto temp{std::make_shared<dsc::lists::Node<T>>(node(data))};
+	auto temp{std::make_shared<dsc::lists::Node<T>>(node(data))};
 
-    if(isEmpty())
-    {
-        m_head = std::move(temp);
-        m_tail = m_head;
-    }
-    else
-    {
-        temp->next = std::move(m_head);
-        m_head = std::move(temp);
-    }
+	if(isEmpty()) {
+		m_head = std::move(temp);
+		m_tail = m_head;
+	}
+	else {
+		temp->next = std::move(m_head);
+		m_head = std::move(temp);
+	}
 
-    ++size();
-    return true;
+	++size();
+	return true;
 }
 
-template <typename T>
+template<typename T>
 bool dsc::lists::UnorderedList<T>::pop()
 {
-    if(isEmpty())
-    {
-        return true;
-    }
+	if(isEmpty()) {
+		return true;
+	}
 
-    auto temp = std::move(m_head);
-    m_head = std::move(temp->next);
+	auto temp = std::move(m_head);
+	m_head = std::move(temp->next);
 
-    --size();
-    return true;
+	--size();
+	return true;
 }
 
-template <typename T>
+template<typename T>
 bool dsc::lists::UnorderedList<T>::remove(const T& data)
 {
-    auto temp = m_head;
+	auto temp = m_head;
 
-    while(temp)
-    {
-        if(temp->data == data){
-            m_head = std::move(temp->next);
-            --size();
+	while(temp) {
+		if(temp->data == data) {
+			m_head = std::move(temp->next);
+			--size();
 
-            return true;
-        }
+			return true;
+		}
 
-        if(temp->next && temp->next->data == data)
-        {
-            if(temp->next->next)
-            {
-                temp->next = temp->next->next;
-                --size();
+		if(temp->next && temp->next->data == data) {
+			if(temp->next->next) {
+				temp->next = temp->next->next;
+				--size();
 
-                return true;
-            }
-            else
-            {
-                temp->next = nullptr;
-                m_tail = std::move(temp);
-                --size();
+				return true;
+			}
+			else {
+				temp->next = nullptr;
+				m_tail = std::move(temp);
+				--size();
 
-                return true;
-            }
-        }
+				return true;
+			}
+		}
 
-        temp = temp->next;
-    }
+		temp = temp->next;
+	}
 
-    return false;
+	return false;
 }
 
-template <typename T>
+template<typename T>
 const dsc::lists::Node<T>* dsc::lists::UnorderedList<T>::back() const
 {
-    return m_tail.get();
+	return m_tail.get();
 }
 
-template <typename T>
+template<typename T>
 const dsc::lists::Node<T>* dsc::lists::UnorderedList<T>::front() const
 {
-    return m_head.get();
+	return m_head.get();
 }
 
-template <typename T>
+template<typename T>
 void dsc::lists::UnorderedList<T>::print() const
 {
-    auto temp = m_head;
+	auto temp = m_head;
 
-    while(temp){
-        std::cout << temp->data << " -> ";
-        temp = temp->next;
-    }
-    std::cout << std::endl;
+	while(temp) {
+		std::cout << temp->data << " -> ";
+		temp = temp->next;
+	}
+	std::cout << std::endl;
 }

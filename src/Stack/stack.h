@@ -7,119 +7,115 @@
 namespace dsc {
 namespace lifo {
 
-template <typename T>
+template<typename T>
 class Stack {
 public:
-    // -------------------------------------------------------------------------
-    // CONSTRUCTORS
-    // -------------------------------------------------------------------------
-    Stack(std::size_t maxSize) noexcept : m_maxSize(maxSize), m_size(0), m_top(0)
-    {
-        m_stack = new T[maxSize + 1];
-    }
+	// -------------------------------------------------------------------------
+	// CONSTRUCTORS
+	// -------------------------------------------------------------------------
+	Stack(std::size_t maxSize) noexcept
+		: m_maxSize(maxSize)
+		, m_size(0)
+		, m_top(0)
+	{
+		m_stack = new T[maxSize + 1];
+	}
 
-    // -------------------------------------------------------------------------
-    // DESTRUCTORS
-    // -------------------------------------------------------------------------
-    ~Stack()
-    {
-        delete[] m_stack;
-    }
+	// -------------------------------------------------------------------------
+	// DESTRUCTORS
+	// -------------------------------------------------------------------------
+	~Stack()
+	{
+		delete[] m_stack;
+	}
 
-    // -------------------------------------------------------------------------
-    // METHODS
-    // -------------------------------------------------------------------------
-    bool push(const T& elem)
-    {
-        if(isFull())
-            return false;
+	// -------------------------------------------------------------------------
+	// METHODS
+	// -------------------------------------------------------------------------
+	bool push(const T& elem)
+	{
+		if(isFull())
+			return false;
 
-        if(m_top + 1 > m_maxSize)
-        {
-            m_top = 0;
-            m_stack[m_top] = elem;
-        }
-        else
-        {
-            m_stack[m_top] = elem;
-        }
-        ++m_top;
-        ++updateSize();
+		if(m_top + 1 > m_maxSize) {
+			m_top = 0;
+			m_stack[m_top] = elem;
+		}
+		else {
+			m_stack[m_top] = elem;
+		}
+		++m_top;
+		++updateSize();
 
-        return true;
-    }
+		return true;
+	}
 
-    bool pop()
-    {
-        if(isEmpty())
-        {
-            return false;
-        }
-        --updateSize();
-        --m_top;
+	bool pop()
+	{
+		if(isEmpty())
+			return false;
 
-        return true;
-    }
+		--updateSize();
+		--m_top;
 
-    const T& top() const
-    {
-        if(isEmpty())
-        {
-            throw "Stack is empty";
-        }
+		return true;
+	}
 
-        return m_stack[m_top - 1];
-    }
+	const T& top() const
+	{
+		if(isEmpty())
+			throw "Stack is empty";
 
-    const bool isEmpty() const
-    {
-        return size() == 0;
-    }
+		return m_stack[m_top - 1];
+	}
 
-    bool isFull()
-    {
-        return size() == m_maxSize;
-    }
+	const bool isEmpty() const
+	{
+		return size() == 0;
+	}
 
-    const size_t size() const
-    {
-        return m_size;
-    }
+	bool isFull()
+	{
+		return size() == m_maxSize;
+	}
 
-    void print()
-    {
-        if(isEmpty())
-            std::cout << "Stack is empty\n";
-        else
-        {
-            auto index = m_top - 1;
+	const size_t size() const
+	{
+		return m_size;
+	}
 
-            for(auto i = 0; i < size(); ++i)
-            {
-                index = index < 0 ? m_maxSize-1 : index;
-                std::cout << m_stack[index] << "->";
-                --index;
-            }
-            std::cout << std::endl;
-        }
-    }
+	void print()
+	{
+		if(isEmpty())
+			std::cout << "Stack is empty\n";
+		else {
+			auto index = m_top - 1;
+
+			for(auto i = 0; i < size(); ++i) {
+				index = index < 0 ? m_maxSize - 1 : index;
+				std::cout << m_stack[index] << "->";
+				--index;
+			}
+			std::cout << std::endl;
+		}
+	}
 
 private:
-    // -------------------------------------------------------------------------
-    // AUXILARY METHODS
-    // -------------------------------------------------------------------------
-    size_t& updateSize()
-    {
-        return m_size;
-    }
+	// -------------------------------------------------------------------------
+	// AUXILARY METHODS
+	// -------------------------------------------------------------------------
+	size_t& updateSize()
+	{
+		return m_size;
+	}
 
-    // -------------------------------------------------------------------------
-    // DATA
-    // -------------------------------------------------------------------------
-    std::size_t m_maxSize;
-    std::size_t m_size;
-    int m_top;
-    T *m_stack;
+	// -------------------------------------------------------------------------
+	// DATA
+	// -------------------------------------------------------------------------
+	std::size_t m_maxSize;
+	std::size_t m_size;
+	int m_top;
+	T* m_stack;
 };
 
 }  // namespace lifo
