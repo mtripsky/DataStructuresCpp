@@ -34,6 +34,7 @@ public:
 	// METHODS
 	// -------------------------------------------------------------------------
 	bool push(const T& data);
+	bool push_back(const T& data);
 	bool pop();
 	bool remove(const T& data);
 	const Node<T>* back() const;

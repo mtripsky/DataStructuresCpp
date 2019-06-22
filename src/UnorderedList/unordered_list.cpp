@@ -20,6 +20,26 @@ bool dsc::lists::UnorderedList<T>::push(const T& data)
 }
 
 template<typename T>
+bool dsc::lists::UnorderedList<T>::push_back(const T& data)
+{
+	auto temp{std::make_shared<dsc::lists::Node<T>>(node(data))};
+
+	if(isEmpty()) {
+		m_tail = std::move(temp);
+		m_head = m_tail;
+	}
+	else {
+		auto tail = std::move(m_tail);
+		temp->next = std::move(m_tail);
+		m_tail = std::move(temp);
+		tail->next = m_tail;
+	}
+
+	++size();
+	return true;
+}
+
+template<typename T>
 bool dsc::lists::UnorderedList<T>::pop()
 {
 	if(isEmpty()) {
