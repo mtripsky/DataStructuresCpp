@@ -9,7 +9,7 @@ namespace dsc {
 namespace lists {
 namespace tests {
 
-SCENARIO("testing UnorderedList Push method with int as data")
+SCENARIO("testing UnorderedList push method with int as data")
 {
 	GIVEN("empty list")
 	{
@@ -47,7 +47,139 @@ SCENARIO("testing UnorderedList Push method with int as data")
 	}
 }
 
-SCENARIO("testing UnorderedList Pop method with int as data")
+SCENARIO("testing UnorderedList push_back method with int as data")
+{
+	GIVEN("empty list")
+	{
+		auto sut = UnorderedList<int>();
+
+		WHEN("push_back data:1 into list")
+		{
+			auto result = sut.push_back(1);
+
+			THEN("list size should be 1 and front and back should be 1")
+			{
+				REQUIRE(sut.size() == 1);
+				REQUIRE(result == true);
+				REQUIRE(sut.front()->data == 1);
+				REQUIRE(sut.back()->data == 1);
+			}
+		}
+
+		WHEN("push_back data:1, 2 into list")
+		{
+			sut.push_back(1);
+			sut.push_back(2);
+
+			THEN("list size should be 2 and front should be 1 and back 2")
+			{
+				REQUIRE(sut.size() == 2);
+				REQUIRE(sut.front()->data == 1);
+				REQUIRE(sut.back()->data == 2);
+			}
+		}
+
+		WHEN("push_back data:1, 2, 3 into list")
+		{
+			sut.push_back(1);
+			sut.push_back(2);
+			sut.push_back(3);
+
+			THEN("list size should be 3 and front should be 1 and back 3")
+			{
+				REQUIRE(sut.size() == 3);
+				REQUIRE(sut.front()->data == 1);
+				REQUIRE(sut.back()->data == 3);
+			}
+		}
+
+		WHEN("push_back data:1, 2, 3 into list and then remove 3")
+		{
+			sut.push_back(1);
+			sut.push_back(2);
+			sut.push_back(3);
+			sut.remove(3);
+
+			THEN("list size should be 2 and front should be 1 and back 2")
+			{
+				REQUIRE(sut.size() == 2);
+				REQUIRE(sut.front()->data == 1);
+				REQUIRE(sut.back()->data == 2);
+			}
+		}
+	}
+}
+
+SCENARIO("testing UnorderedList push and push_back methods combination to create list with int as data")
+{
+	GIVEN("empty list")
+	{
+		auto sut = UnorderedList<int>();
+
+		WHEN("push_back data:1, 2 and then push 3 into list")
+		{
+			sut.push_back(1);
+			sut.push_back(2);
+			sut.push(3);
+
+			THEN("list size should be 3 and front=3 and back should be 2, list: 3->1->2")
+			{
+				REQUIRE(sut.size() == 3);
+				REQUIRE(sut.front()->data == 3);
+				REQUIRE(sut.back()->data == 2);
+			}
+		}
+
+		WHEN("push data:1, 2 and then push_back 3 and then push 4 into list")
+		{
+			sut.push(1);
+			sut.push(2);
+			sut.push_back(3);
+			sut.push(4);
+
+			THEN("list size should be 4 and front should be 4 and back 3, list: 4->2->1->3")
+			{
+				REQUIRE(sut.size() == 4);
+				REQUIRE(sut.front()->data == 4);
+				REQUIRE(sut.back()->data == 3);
+			}
+		}
+
+		WHEN("push_back data:1, push data:2, push_back data:3, push data:4 into list")
+		{
+			sut.push_back(1);
+			sut.push(2);
+			sut.push_back(3);
+			sut.push(4);
+
+			THEN("list size should be 4 and front should be 4 and back 3, list: 4->2->1->3")
+			{
+				REQUIRE(sut.size() == 4);
+				REQUIRE(sut.front()->data == 4);
+				REQUIRE(sut.back()->data == 3);
+			}
+		}
+
+		WHEN("push_back data:1, push data:2, push_back data:3, push data:4 into list and remove 4 and 3")
+		{
+			sut.push_back(1);
+			sut.push(2);
+			sut.push_back(3);
+			sut.push(4);
+			sut.remove(4);
+			sut.remove(3);
+
+			THEN("list size should be 2 and front should be 2 and back 1, list: 2->1")
+			{
+				REQUIRE(sut.size() == 2);
+				REQUIRE(sut.front()->data == 2);
+				REQUIRE(sut.back()->data == 1);
+			}
+		}
+	}
+}
+
+SCENARIO("testing UnorderedList pop method with int as data")
 {
 	GIVEN("empty list")
 	{
@@ -124,7 +256,7 @@ SCENARIO("testing UnorderedList Pop method with int as data")
 	}
 }
 
-SCENARIO("testing UnorderedList Remove method with int as data")
+SCENARIO("testing UnorderedList remove method with int as data")
 {
 	GIVEN(" list with one node")
 	{
@@ -251,7 +383,7 @@ SCENARIO("testing UnorderedList Remove method with int as data")
 	}
 }
 
-SCENARIO("testing UnorderedList Front method with int as data")
+SCENARIO("testing UnorderedList front method with int as data")
 {
 	GIVEN("empty list")
 	{
@@ -295,7 +427,7 @@ SCENARIO("testing UnorderedList Front method with int as data")
 	}
 }
 
-SCENARIO("testing UnorderedList Back method with int as data")
+SCENARIO("testing UnorderedList back method with int as data")
 {
 	GIVEN("empty list")
 	{
@@ -339,7 +471,7 @@ SCENARIO("testing UnorderedList Back method with int as data")
 	}
 }
 
-SCENARIO("testing UnorderedList Front and Back methods with int as data")
+SCENARIO("testing UnorderedList front and back methods with int as data")
 {
 	GIVEN("empty list")
 	{
