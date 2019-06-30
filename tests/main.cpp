@@ -4,3 +4,4 @@
 #include "QueueTests/queue_tests.cpp"
 #include "StackTests/stack_tests.cpp"
 #include "UnorderedListTests/unordered_list_tests.cpp"
+#include "GraphsTests/Incidence-Matrix/graph_tests.cpp"
