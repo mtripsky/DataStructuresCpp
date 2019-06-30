@@ -172,7 +172,7 @@ SCENARIO("testing Graph methods: add_edge and neighbors with int as verticies")
 				REQUIRE(neighbors_Node0[1] == 1);
 				REQUIRE(neighbors_Node0[2] == 2);
 				REQUIRE(neighbors_Node1.size() == 1);
-				REQUIRE(neighbors_Node1[1] == 1);
+				REQUIRE(neighbors_Node1[0] == 1);
 				REQUIRE(neighbors_Node2.size() == 2);
 				REQUIRE(neighbors_Node2[0] == 0);
 				REQUIRE(neighbors_Node2[1] == 2);
