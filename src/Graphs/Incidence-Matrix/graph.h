@@ -1,5 +1,5 @@
-#ifndef Graphs_IncidenceMatrix_h
-#define Graphs_IncidenceMatrix_h
+#ifndef Graphs_IncidenceMatrix_Graph_h
+#define Graphs_IncidenceMatrix_Graph_h
 
 #include <iostream>
 #include <vector>
@@ -69,4 +69,4 @@ private:
 
 #include "graph.cpp"
 
-#endif  // Graphs_IncidenceMatrix_h
+#endif  // Graphs_IncidenceMatrix_Graph_h

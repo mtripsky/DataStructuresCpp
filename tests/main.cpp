@@ -5,3 +5,4 @@
 #include "StackTests/stack_tests.cpp"
 #include "UnorderedListTests/unordered_list_tests.cpp"
 #include "GraphsTests/Incidence-Matrix/graph_tests.cpp"
+#include "TreesTests/BstTests/bst_tests.cpp"
