@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <vector>
 #include "../../../libs/catch.hpp"
 #include "../../../libs/fakeit.hpp"
 #include "../../../src/Trees/Bst/node.h"
@@ -28,8 +29,6 @@ SCENARIO("testing BST insert method with int key and int data")
 		{
 			sut.insert(10,10);
 
-			sut.print();
-
 			THEN("size should be 1")
 			{
 				REQUIRE(sut.size() == 1);
@@ -40,8 +39,6 @@ SCENARIO("testing BST insert method with int key and int data")
 		{
 			sut.insert(10,10);
 			sut.insert(5,5);
-
-			sut.print();
 
 			THEN("size should be 2")
 			{
@@ -54,8 +51,6 @@ SCENARIO("testing BST insert method with int key and int data")
 			sut.insert(10,10);
 			sut.insert(5,5);
 			sut.insert(12,12);
-
-			sut.print();
 
 			THEN("size should be 3")
 			{
@@ -70,7 +65,7 @@ SCENARIO("testing BST insert method with int key and int data")
 			sut.insert(12,12);
 			sut.insert(1,1);
 
-			sut.print();
+			sut.printInOrder();
 
 			THEN("size should be 4")
 			{
@@ -218,10 +213,10 @@ SCENARIO("testing BST remove method with int key and int data")
 		WHEN("remove node with key 5")
 		{
 			std::cout << "BEFORE: " << std::endl;
-			sut.print();
+			sut.printInOrder();
 			sut.remove(5);
-			std::cout << "REMOVE: " << std::endl;
-			sut.print();
+			std::cout << "REMOVE (5): " << std::endl;
+			sut.printInOrder();
 
 			THEN("size of BST should be 2 and minKey should be 10")
 			{
@@ -233,10 +228,10 @@ SCENARIO("testing BST remove method with int key and int data")
 		WHEN("remove node with key 12 and maxKey should be 10")
 		{
 			std::cout << "BEFORE: " << std::endl;
-			sut.print();
+			sut.printInOrder();
 			sut.remove(12);
-			std::cout << "REMOVE: " << std::endl;
-			sut.print();
+			std::cout << "REMOVE (12): " << std::endl;
+			sut.printInOrder();
 
 			THEN("size of BST should be 2")
 			{
@@ -261,10 +256,10 @@ SCENARIO("testing BST remove method with int key and int data")
 		WHEN("remove node with key 5")
 		{
 			std::cout << "BEFORE: " << std::endl;
-			sut.print();
+			sut.printInOrder();
 			sut.remove(5);
-			std::cout << "REMOVE: " << std::endl;
-			sut.print();
+			std::cout << "REMOVE (5): " << std::endl;
+			sut.printInOrder();
 
 			THEN("size of BST should be 7 and it should not find node with key 5, maxKey=12 and minKey=1")
 			{
@@ -278,10 +273,10 @@ SCENARIO("testing BST remove method with int key and int data")
 		WHEN("remove node with key 1")
 		{
 			std::cout << "BEFORE: " << std::endl;
-			sut.print();
+			sut.printInOrder();
 			sut.remove(1);
-			std::cout << "REMOVE: " << std::endl;
-			sut.print();
+			std::cout << "REMOVE (1): " << std::endl;
+			sut.printInOrder();
 
 			THEN("size of BST should be 7 and it should not find node with key 1, maxKey=12 and minKey=2")
 			{
@@ -295,10 +290,10 @@ SCENARIO("testing BST remove method with int key and int data")
 		WHEN("remove node with key 10")
 		{
 			std::cout << "BEFORE: " << std::endl;
-			sut.print();
+			sut.printInOrder();
 			sut.remove(10);
-			std::cout << "REMOVE: " << std::endl;
-			sut.print();
+			std::cout << "REMOVE (10): " << std::endl;
+			sut.printInOrder();
 
 			THEN("size of BST should be 7 and it should not find node with key 10, maxKey=12 and minKey=1")
 			{
@@ -306,6 +301,172 @@ SCENARIO("testing BST remove method with int key and int data")
 				REQUIRE(sut.findNode(10) == nullptr);
 				REQUIRE(sut.findMaxKey() == 12);
 				REQUIRE(sut.findMinKey() == 1);
+			}
+		}
+	}
+}
+
+SCENARIO("testing BST depth method with int key and int data")
+{
+	GIVEN("empty BST")
+	{
+		auto sut = BST<int, int>();
+
+		WHEN("not inserting anything")
+		{
+			THEN("depth of tree should be 0")
+			{
+				REQUIRE(sut.depth() == 0);
+			}
+		}
+
+		WHEN("insert 10")
+		{
+			sut.insert(10, 10);
+
+			THEN("depth of tree should be 1")
+			{
+				REQUIRE(sut.depth() == 1);
+			}
+		}
+
+		WHEN("insert 10,9")
+		{
+			sut.insert(10,10);
+			sut.insert(9,9);
+
+			THEN("depth of tree should be 2")
+			{
+				REQUIRE(sut.depth() == 2);
+			}
+		}
+
+		WHEN("insert 10,9,8,7,6,5,4,3,2,1")
+		{
+			sut.insert(10,10);
+			sut.insert(9,9);
+			sut.insert(8,8);
+			sut.insert(7,7);
+			sut.insert(6,6);
+			sut.insert(5,5);
+			sut.insert(4,4);
+			sut.insert(3,3);
+			sut.insert(2,2);
+			sut.insert(1,1);
+
+			THEN("depth of tree should be 10")
+			{
+				REQUIRE(sut.depth() == 10);
+			}
+		}
+
+		WHEN("insert 10,5,12,9,3,4,2,1")
+		{
+			sut.insert(10,10);		//					10
+			sut.insert(5,5);		//				5		12
+			sut.insert(12,12);		//			3		9
+			sut.insert(9,9);		//		2		4
+			sut.insert(3,3);		//	1
+			sut.insert(4,4);		//
+			sut.insert(2,2);		//
+			sut.insert(1,1);		//
+
+			THEN("depth of tree should be 5")
+			{
+				REQUIRE(sut.depth() == 5);
+			}
+		}
+	}
+}
+
+SCENARIO("testing BST constructor using algorithm Minimal Tree from Cracking Coding Interview")
+{
+	GIVEN("ordered array of 5 numbers")
+	{
+		int array[5] = {1,2,3,4,5};
+		auto size = sizeof(array)/sizeof(array[0]);
+		auto tree = BST<int, int>(array, size);
+
+		WHEN("calling the algorithm")
+		{
+			std::cout << "tree should be 1,2,3,4,5" << std::endl;
+			tree.printInOrder();
+
+			THEN("depth of tree should be 3")
+			{
+				REQUIRE(tree.depth() == 3);
+			}
+		}
+	}
+
+	GIVEN("ordered array of 7 numbers")
+	{
+		int array[7] = {3,5,9,10,11,12,13};
+		auto size = sizeof(array)/sizeof(array[0]);
+		auto tree = BST<int, int>(array, size);
+
+		WHEN("calling the algorithm")
+		{
+			std::cout << "tree should be 3,5,9,10,11,12,13" << std::endl;
+			tree.printInOrder();
+
+			THEN("depth of tree should be 3")
+			{
+				REQUIRE(tree.depth() == 3);
+			}
+		}
+	}
+
+	GIVEN("ordered array of 1 number")
+	{
+		int array[1] = {3};
+		auto size = sizeof(array)/sizeof(array[0]);
+		auto tree = BST<int, int>(array, size);
+
+		WHEN("calling the algorithm")
+		{
+			std::cout << "tree should be 3" << std::endl;
+			tree.printInOrder();
+
+			THEN("depth of tree should be 1")
+			{
+				REQUIRE(tree.depth() == 1);
+			}
+		}
+	}
+
+	GIVEN("ordered array of 3 numbers")
+	{
+		int array[3] = {1,2,3};
+		auto size = sizeof(array)/sizeof(array[0]);
+		auto tree = BST<int, int>(array, size);
+
+		WHEN("calling the algorithm")
+		{
+			std::cout << "tree should be 1,2,3" << std::endl;
+			tree.printInOrder();
+
+			THEN("depth of tree should be 2")
+			{
+				REQUIRE(tree.depth() == 2);
+			}
+		}
+	}
+
+	GIVEN("empty array")
+	{
+		int array[0] = {};
+		auto size = sizeof(array)/sizeof(array[0]);
+		auto tree = BST<int, int>(array, size);
+
+		WHEN("calling the algorithm")
+		{
+			std::cout << "tree should be empty" << std::endl;
+			tree.printInOrder();
+
+			THEN("depth of tree should be 0")
+			{
+				REQUIRE(tree.depth() == 0);
 			}
 		}
 	}

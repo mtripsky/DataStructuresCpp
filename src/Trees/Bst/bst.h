@@ -26,6 +26,12 @@ public:
     {
     }
 
+    BST(Tkey keys[], int size) noexcept
+        : m_size(size)
+    {
+        m_root = std::move(createMinimalTreeFromArray(keys, 0, size - 1));
+    }
+
     // -------------------------------------------------------------------------
 	// METHODS
 	// -------------------------------------------------------------------------
@@ -39,12 +45,18 @@ public:
         insert(m_root, key, data);
     }
 
-    void print() const
+    void printTreeStructure() const
     {
-        print(m_root, 0);
+        printTreeStructure(m_root, 0);
     }
 
-    const dsc::trees::bst::Node<Tkey, Tdata>* findNode(Tkey key) const
+    void printInOrder() const
+    {
+        printInOrder(m_root);
+        std::cout<<std::endl;
+    }
+
+    const Node<Tkey, Tdata>* findNode(Tkey key) const
     {
         return findNode(m_root, key);
     }
@@ -74,10 +86,25 @@ public:
         return m_size;
     }
 
+    const int depth() const
+    {
+        if(!m_root)
+            return 0;
+
+        return max(depth(m_root->left), depth(m_root->right)) + 1;
+    }
+
+
+
 private:
     // -------------------------------------------------------------------------
 	// AUXILARY METHODS
 	// -------------------------------------------------------------------------
+    std::shared_ptr<Node<Tkey, Tdata>> createMinimalTreeFromArray(
+        Tkey keys[],
+        int left,
+        int right);
+
     const Tkey findMaxMinKey(
         std::shared_ptr<Node<Tkey, Tdata>> root,
         bool findMaximum) const;
@@ -91,9 +118,32 @@ private:
         Tkey key,
         Tdata data);
 
-    void print(
+    const int depth(std::shared_ptr<Node<Tkey, Tdata>> root) const
+    {
+        if(!root)
+            return 0;
+
+        return max(depth(root->left), depth(root->right)) + 1;
+    }
+
+    const int max(const int x, const int y) const
+    {
+        return x >= y ? x : y;
+    }
+
+    void printTreeStructure(
         std::shared_ptr<Node<Tkey, Tdata>> root,
          int space) const;
+
+    void printInOrder(std::shared_ptr<Node<Tkey, Tdata>> root) const
+    {
+        if(!root)
+            return;
+
+        printInOrder(root->left);
+        std::cout << root->key << ", ";
+        printInOrder(root->right);
+    }
 
     void remove(
         std::shared_ptr<Node<Tkey, Tdata>>& root,

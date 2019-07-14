@@ -76,7 +76,7 @@ public:
 		return size() == 0;
 	}
 
-	bool isFull()
+	const bool isFull() const
 	{
 		return size() == m_maxSize;
 	}
@@ -86,7 +86,7 @@ public:
 		return m_size;
 	}
 
-	void print()
+	void print() const
 	{
 		if(isEmpty())
 			std::cout << "Queue is empty\n";

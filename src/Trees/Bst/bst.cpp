@@ -2,6 +2,23 @@
 #include "bst.h"
 
 template<typename Tkey, typename Tdata>
+std::shared_ptr<dsc::trees::bst::Node<Tkey, Tdata>> dsc::trees::bst::BST<Tkey, Tdata>::createMinimalTreeFromArray(
+    Tkey keys[],
+    int left,
+    int right)
+{
+    if(left > right)
+        return nullptr;
+
+    int mid = (left + right)/2;
+    auto result{std::make_shared<dsc::trees::bst::Node<Tkey, Tdata>>(node(keys[mid], keys[mid]))};
+    result->left = std::move(createMinimalTreeFromArray(keys, left, mid - 1));
+    result->right = std::move(createMinimalTreeFromArray(keys, mid + 1, right));
+
+    return result;
+}
+
+template<typename Tkey, typename Tdata>
 const Tkey dsc::trees::bst::BST<Tkey, Tdata>::findMaxMinKey(
     std::shared_ptr<dsc::trees::bst::Node<Tkey, Tdata>> root,
     bool findMaximum) const
@@ -72,7 +89,7 @@ void dsc::trees::bst::BST<Tkey, Tdata>::insert(
 }
 
 template<typename Tkey, typename Tdata>
-void dsc::trees::bst::BST<Tkey, Tdata>::print(
+void dsc::trees::bst::BST<Tkey, Tdata>::printTreeStructure(
     std::shared_ptr<dsc::trees::bst::Node<Tkey, Tdata>> root,
     int space) const
 {
