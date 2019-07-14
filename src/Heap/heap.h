@@ -75,14 +75,6 @@ public:
 		return m_size;
 	}
 
-	void print()
-	{
-		for(auto i = 1; i <= size(); ++i) {
-			std::cout << m_heap[i] << " ";
-		}
-		std::cout << std::endl;
-	}
-
 private:
 	// -------------------------------------------------------------------------
 	// AUXILARY METHODS
