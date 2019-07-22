@@ -521,6 +521,128 @@ SCENARIO("testing UnorderedList front and back methods with int as data")
 	}
 }
 
+SCENARIO("testing UnorderedList reverse method with int as data")
+{
+	GIVEN("empty list")
+	{
+		auto sut = UnorderedList<int>();
+
+		WHEN("reverse list")
+		{
+			sut.reverse();
+
+			THEN("list should have size 0")
+			{
+				REQUIRE(sut.size() == 0);
+			}
+		}
+	}
+
+	GIVEN(" list: 1->")
+	{
+		auto sut = UnorderedList<int>();
+		sut.push(1);
+
+		WHEN("reverse list")
+		{
+			sut.reverse();
+
+			THEN("list should have size 1, front is 1 and back is 1")
+			{
+				REQUIRE(sut.size() == 1);
+				REQUIRE(sut.front()->data == 1);
+				REQUIRE(sut.back()->data == 1);
+			}
+		}
+	}
+
+	GIVEN(" list: 1->2")
+	{
+		auto sut = UnorderedList<int>();
+		sut.push(2);
+		sut.push(1);
+
+		WHEN("reverse list")
+		{
+			sut.reverse();
+
+			THEN("list should have size 2, front is 2 and back is 1")
+			{
+				REQUIRE(sut.size() == 2);
+				REQUIRE(sut.front()->data == 2);
+				REQUIRE(sut.back()->data == 1);
+			}
+		}
+	}
+
+	GIVEN(" list: 1->2->3")
+	{
+		auto sut = UnorderedList<int>();
+		sut.push(3);
+		sut.push(2);
+		sut.push(1);
+
+		WHEN("reverse list")
+		{
+			sut.reverse();
+
+			THEN("list should have size 3, front is 3 and back is 1")
+			{
+				REQUIRE(sut.size() == 3);
+				REQUIRE(sut.front()->data == 3);
+				REQUIRE(sut.back()->data == 1);
+			}
+		}
+	}
+
+	GIVEN(" list: 1->2->3->4")
+	{
+		auto sut = UnorderedList<int>();
+		sut.push(4);
+		sut.push(3);
+		sut.push(2);
+		sut.push(1);
+
+		WHEN("reverse list")
+		{
+			sut.reverse();
+
+			THEN("list should have size 4, front is 4 and back is 1")
+			{
+				REQUIRE(sut.size() == 4);
+				REQUIRE(sut.front()->data == 4);
+				REQUIRE(sut.back()->data == 1);
+			}
+		}
+	}
+
+	GIVEN(" list: 1->2->3->4->5")
+	{
+		auto sut = UnorderedList<int>();
+		sut.push(5);
+		sut.push(4);
+		sut.push(3);
+		sut.push(2);
+		sut.push(1);
+		std::cout << "UnorderedList Before REVERSE: " << std::endl;
+		sut.print();
+
+		WHEN("reverse list")
+		{
+			sut.reverse();
+			std::cout << "UnorderedList After REVERSE: " << std::endl;
+			sut.print();
+
+			THEN("list should have size 5, front is 5 and back is 1")
+			{
+				REQUIRE(sut.size() == 5);
+				REQUIRE(sut.front()->data == 5);
+				REQUIRE(sut.back()->data == 1);
+			}
+		}
+	}
+}
+
 }  // namespace tests
 }  // namespace lists
 }  // namespace dsc
