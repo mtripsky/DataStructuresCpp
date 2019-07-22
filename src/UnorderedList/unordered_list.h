@@ -39,6 +39,7 @@ public:
 	bool remove(const T& data);
 	const Node<T>* back() const;
 	const Node<T>* front() const;
+	void reverse();
 	void print() const;
 
 	size_t& size()

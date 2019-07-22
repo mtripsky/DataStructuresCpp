@@ -101,6 +101,27 @@ const dsc::lists::Node<T>* dsc::lists::UnorderedList<T>::front() const
 }
 
 template<typename T>
+void dsc::lists::UnorderedList<T>::reverse()
+{
+	if(m_head != m_tail)
+	{
+		std::shared_ptr<dsc::lists::Node<T>> previous(nullptr);
+		auto current = m_head;
+		auto following = m_head;
+		m_tail = m_head;
+
+		while(current)
+		{
+			following = following->next;
+			current->next = previous;
+			previous = current;
+			current = following;
+		}
+		m_head = previous;
+	}
+}
+
+template<typename T>
 void dsc::lists::UnorderedList<T>::print() const
 {
 	auto temp = m_head;
