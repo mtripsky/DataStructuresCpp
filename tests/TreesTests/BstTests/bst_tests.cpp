@@ -65,8 +65,6 @@ SCENARIO("testing BST insert method with int key and int data")
 			sut.insert(12,12);
 			sut.insert(1,1);
 
-			sut.printInOrder();
-
 			THEN("size should be 4")
 			{
 				REQUIRE(sut.size() == 4);
