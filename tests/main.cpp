@@ -3,6 +3,7 @@
 #include "HeapTests/heap_tests.cpp"
 #include "QueueTests/queue_tests.cpp"
 #include "StackTests/stack_tests.cpp"
-#include "UnorderedListTests/unordered_list_tests.cpp"
+#include "LinkedListTests/unordered_linkedList_tests.cpp"
+#include "LinkedListTests/ordered_linkedList_tests.cpp"
 #include "GraphsTests/Incidence-Matrix/graph_tests.cpp"
 #include "TreesTests/BstTests/bst_tests.cpp"

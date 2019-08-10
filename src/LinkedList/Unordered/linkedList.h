@@ -1,21 +1,22 @@
-#ifndef Unordered_List_Unordered_List_h
-#define Unordered_List_Unordered_List_h
+#ifndef Linked_List_Unordered_Linked_List_h
+#define Linked_List_Unordered_Linked_List_h
 
 #include <iostream>
 #include <memory>
-#include "node.h"
+#include "../node.h"
 
 
 namespace dsc {
 namespace lists {
+namespace unordered {
 
 template<typename T>
-class UnorderedList {
+class LinkedList {
 public:
 	// -------------------------------------------------------------------------
 	// CONSTRUCTORS
 	// -------------------------------------------------------------------------
-	UnorderedList() noexcept
+	LinkedList() noexcept
 		: m_head(nullptr)
 		, m_tail(nullptr)
 		, m_size(0)
@@ -25,7 +26,7 @@ public:
 	// -------------------------------------------------------------------------
 	// DESTRUCTORS
 	// -------------------------------------------------------------------------
-	~UnorderedList()
+	~LinkedList()
 	{
 		clean();
 	}
@@ -72,9 +73,10 @@ private:
 	std::size_t m_size;
 };
 
+}  // namespace unordered
 }  // namespace lists
 }  // namespace dsc
 
-#include "unordered_list.cpp"
+#include "linkedList.cpp"
 
-#endif  // Unordered_List_Unordered_List_h
+#endif  // Linked_List_Unordered_Linked_List_h

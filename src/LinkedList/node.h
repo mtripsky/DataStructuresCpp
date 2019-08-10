@@ -1,5 +1,5 @@
-#ifndef Unordered_Single_List_Node_h
-#define Unordered_Single_List_Node_h
+#ifndef Linked_List_Node_h
+#define Linked_List_Node_h
 
 #include <iostream>
 #include <memory>
@@ -29,4 +29,4 @@ Node<T> node(T data)
 }  // namespace lists
 }  // namespace dsc
 
-#endif  // Unordered_Single_List_Node_h
+#endif  // Linked_List_Node_h
