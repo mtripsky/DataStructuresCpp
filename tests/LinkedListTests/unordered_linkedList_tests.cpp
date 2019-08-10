@@ -1,19 +1,20 @@
 #include <stdio.h>
 #include "../../libs/catch.hpp"
 #include "../../libs/fakeit.hpp"
-#include "../../src/UnorderedList/node.h"
-#include "../../src/UnorderedList/unordered_list.h"
+#include "../../src/LinkedList/node.h"
+#include "../../src/LinkedList/Unordered/linkedList.h"
 
 
 namespace dsc {
 namespace lists {
+namespace unordered {
 namespace tests {
 
 SCENARIO("testing UnorderedList push method with int as data")
 {
 	GIVEN("empty list")
 	{
-		auto sut = UnorderedList<int>();
+		auto sut = LinkedList<int>();
 
 		WHEN("do nothing")
 		{
@@ -51,7 +52,7 @@ SCENARIO("testing UnorderedList push_back method with int as data")
 {
 	GIVEN("empty list")
 	{
-		auto sut = UnorderedList<int>();
+		auto sut = LinkedList<int>();
 
 		WHEN("push_back data:1 into list")
 		{
@@ -114,7 +115,7 @@ SCENARIO("testing UnorderedList push and push_back methods combination to create
 {
 	GIVEN("empty list")
 	{
-		auto sut = UnorderedList<int>();
+		auto sut = LinkedList<int>();
 
 		WHEN("push_back data:1, 2 and then push 3 into list")
 		{
@@ -183,7 +184,7 @@ SCENARIO("testing UnorderedList pop method with int as data")
 {
 	GIVEN("empty list")
 	{
-		auto sut = UnorderedList<int>();
+		auto sut = LinkedList<int>();
 
 		WHEN("pop from the list")
 		{
@@ -199,7 +200,7 @@ SCENARIO("testing UnorderedList pop method with int as data")
 
 	GIVEN(" list with one node")
 	{
-		auto sut = UnorderedList<int>();
+		auto sut = LinkedList<int>();
 		sut.push(1);
 
 		WHEN("pop from the list")
@@ -216,7 +217,7 @@ SCENARIO("testing UnorderedList pop method with int as data")
 
 	GIVEN(" list with two nodes")
 	{
-		auto sut = UnorderedList<int>();
+		auto sut = LinkedList<int>();
 		sut.push(1);
 		sut.push(2);
 
@@ -236,7 +237,7 @@ SCENARIO("testing UnorderedList pop method with int as data")
 
 	GIVEN(" list with three nodes")
 	{
-		auto sut = UnorderedList<int>();
+		auto sut = LinkedList<int>();
 		sut.push(1);
 		sut.push(2);
 		sut.push(3);
@@ -260,7 +261,7 @@ SCENARIO("testing UnorderedList remove method with int as data")
 {
 	GIVEN(" list with one node")
 	{
-		auto sut = UnorderedList<int>();
+		auto sut = LinkedList<int>();
 		sut.push(1);
 
 		WHEN("remove data: 2 from the list")
@@ -288,7 +289,7 @@ SCENARIO("testing UnorderedList remove method with int as data")
 
 	GIVEN(" list with four nodes")
 	{
-		auto sut = UnorderedList<int>();  // 4->3->2->1
+		auto sut = LinkedList<int>();  // 4->3->2->1
 		sut.push(1);
 		sut.push(2);
 		sut.push(3);
@@ -387,7 +388,7 @@ SCENARIO("testing UnorderedList front method with int as data")
 {
 	GIVEN("empty list")
 	{
-		auto sut = UnorderedList<int>();
+		auto sut = LinkedList<int>();
 
 		WHEN("push data:1 into list")
 		{
@@ -431,7 +432,7 @@ SCENARIO("testing UnorderedList back method with int as data")
 {
 	GIVEN("empty list")
 	{
-		auto sut = UnorderedList<int>();
+		auto sut = LinkedList<int>();
 
 		WHEN("push data:1 into list")
 		{
@@ -475,7 +476,7 @@ SCENARIO("testing UnorderedList front and back methods with int as data")
 {
 	GIVEN("empty list")
 	{
-		auto sut = UnorderedList<int>();
+		auto sut = LinkedList<int>();
 
 		WHEN("push data:1 into list")
 		{
@@ -525,7 +526,7 @@ SCENARIO("testing UnorderedList reverse method with int as data")
 {
 	GIVEN("empty list")
 	{
-		auto sut = UnorderedList<int>();
+		auto sut = LinkedList<int>();
 
 		WHEN("reverse list")
 		{
@@ -540,7 +541,7 @@ SCENARIO("testing UnorderedList reverse method with int as data")
 
 	GIVEN(" list: 1->")
 	{
-		auto sut = UnorderedList<int>();
+		auto sut = LinkedList<int>();
 		sut.push(1);
 
 		WHEN("reverse list")
@@ -558,7 +559,7 @@ SCENARIO("testing UnorderedList reverse method with int as data")
 
 	GIVEN(" list: 1->2")
 	{
-		auto sut = UnorderedList<int>();
+		auto sut = LinkedList<int>();
 		sut.push(2);
 		sut.push(1);
 
@@ -577,7 +578,7 @@ SCENARIO("testing UnorderedList reverse method with int as data")
 
 	GIVEN(" list: 1->2->3")
 	{
-		auto sut = UnorderedList<int>();
+		auto sut = LinkedList<int>();
 		sut.push(3);
 		sut.push(2);
 		sut.push(1);
@@ -597,7 +598,7 @@ SCENARIO("testing UnorderedList reverse method with int as data")
 
 	GIVEN(" list: 1->2->3->4")
 	{
-		auto sut = UnorderedList<int>();
+		auto sut = LinkedList<int>();
 		sut.push(4);
 		sut.push(3);
 		sut.push(2);
@@ -618,7 +619,7 @@ SCENARIO("testing UnorderedList reverse method with int as data")
 
 	GIVEN(" list: 1->2->3->4->5")
 	{
-		auto sut = UnorderedList<int>();
+		auto sut = LinkedList<int>();
 		sut.push(5);
 		sut.push(4);
 		sut.push(3);
@@ -644,5 +645,6 @@ SCENARIO("testing UnorderedList reverse method with int as data")
 }
 
 }  // namespace tests
+}  // namespace unordered
 }  // namespace lists
 }  // namespace dsc
