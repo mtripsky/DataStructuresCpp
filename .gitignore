@@ -1,1 +1,6 @@
+/bin
+/build
 /tests/main
+
+#vs-settings
+.vscode
