@@ -1,5 +1,4 @@
-#ifndef Linked_List_Ordered_Linked_List_h
-#define Linked_List_Ordered_Linked_List_h
+#pragma once
 
 #include <iostream>
 #include <memory>
@@ -75,7 +74,3 @@ private:
 }  // namespace ordered
 }  // namespace lists
 }  // namespace dsc
-
-#include "linkedList.cpp"
-
-#endif  // Linked_List_Ordered_Linked_List_h

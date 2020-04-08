@@ -1,5 +1,4 @@
-#ifndef Trees_Bst_Node_h
-#define Trees_Bst_Node_h
+#pragma once
 
 #include <iostream>
 #include <memory>
@@ -34,7 +33,3 @@ Node<Tkey, Tdata> node(Tkey key, Tdata data)
 }  // namespace bst
 }  // namespace trees
 }  // namespace dsc
-
-#include "bst.cpp"
-
-#endif  // Trees_Bst_Node_h

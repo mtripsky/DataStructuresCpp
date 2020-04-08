@@ -1,5 +1,4 @@
-#ifndef Queue_Queue_h
-#define Queue_Queue_h
+#pragma once
 
 #include <iostream>
 
@@ -14,12 +13,12 @@ public:
 	// CONSTRUCTORS
 	// -------------------------------------------------------------------------
 	Queue(std::size_t maxSize) noexcept
-		: m_maxSize(maxSize)
+		: m_queue(new T[maxSize + 1])
+		, m_maxSize(maxSize)
 		, m_size(0)
 		, m_front(0)
 		, m_rear(0)
 	{
-		m_queue = new T[maxSize + 1];
 	}
 
 	// -------------------------------------------------------------------------
@@ -114,14 +113,12 @@ private:
 	// -------------------------------------------------------------------------
 	// DATA
 	// -------------------------------------------------------------------------
+	T* m_queue;
 	std::size_t m_maxSize;
 	std::size_t m_size;
 	int m_front;
 	int m_rear;
-	T* m_queue;
 };
 
 }  // namespace fifo
 }  // namespace dsc
-
-#endif  // Queue_Queue_h
