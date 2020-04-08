@@ -1,5 +1,4 @@
-#ifndef Linked_List_Node_h
-#define Linked_List_Node_h
+#pragma once
 
 #include <iostream>
 #include <memory>
@@ -29,4 +28,3 @@ Node<T> node(T data)
 }  // namespace lists
 }  // namespace dsc
 
-#endif  // Linked_List_Node_h

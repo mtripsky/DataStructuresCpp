@@ -2,7 +2,7 @@
 #include "../../libs/catch.hpp"
 #include "../../libs/fakeit.hpp"
 #include "../../src/LinkedList/node.h"
-#include "../../src/LinkedList/Unordered/linkedList.h"
+#include "../../src/LinkedList/Unordered/linkedList.cpp"
 
 
 namespace dsc {

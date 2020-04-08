@@ -1,5 +1,4 @@
-#ifndef Heap_Heap_h
-#define Heap_Heap_h
+#pragma once
 
 #include <iostream>
 
@@ -14,10 +13,10 @@ public:
 	// CONSTRUCTORS
 	// -------------------------------------------------------------------------
 	Heap(std::size_t maxSize) noexcept
-		: m_size(0)
+		: m_heap(new T[maxSize + 1])
+		, m_size(0)
 		, m_maxSize(maxSize)
 	{
-		m_heap = new T[maxSize + 1];
 	}
 
 	// -------------------------------------------------------------------------
@@ -139,5 +138,3 @@ private:
 
 }  // namespace heap
 }  // namespace dsc
-
-#endif  // Heap_Heap_h

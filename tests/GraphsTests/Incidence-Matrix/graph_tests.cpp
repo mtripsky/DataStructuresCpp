@@ -2,7 +2,7 @@
 #include <vector>
 #include "../../../libs/catch.hpp"
 #include "../../../libs/fakeit.hpp"
-#include "../../../src/Graphs/Incidence-Matrix/graph.h"
+#include "../../../src/Graphs/Incidence-Matrix/graph.cpp"
 
 
 namespace dsc {

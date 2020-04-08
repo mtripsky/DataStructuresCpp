@@ -1,5 +1,4 @@
-#ifndef Stack_Stack_h
-#define Stack_Stack_h
+#pragma once
 
 #include <iostream>
 
@@ -14,11 +13,11 @@ public:
 	// CONSTRUCTORS
 	// -------------------------------------------------------------------------
 	Stack(std::size_t maxSize) noexcept
-		: m_maxSize(maxSize)
+		: m_stack(new T[maxSize + 1])
+		, m_maxSize(maxSize)
 		, m_size(0)
 		, m_top(0)
 	{
-		m_stack = new T[maxSize + 1];
 	}
 
 	// -------------------------------------------------------------------------
@@ -112,13 +111,11 @@ private:
 	// -------------------------------------------------------------------------
 	// DATA
 	// -------------------------------------------------------------------------
+	T* m_stack;
 	std::size_t m_maxSize;
 	std::size_t m_size;
 	int m_top;
-	T* m_stack;
 };
 
 }  // namespace lifo
 }  // namespace dsc
-
-#endif  // Stack_Stack_h

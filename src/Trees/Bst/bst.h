@@ -1,5 +1,4 @@
-#ifndef Trees_Bst_BST_h
-#define Trees_Bst_BST_h
+#pragma once
 
 #include <iostream>
 #include <memory>
@@ -94,8 +93,6 @@ public:
         return max(depth(m_root->left), depth(m_root->right)) + 1;
     }
 
-
-
 private:
     // -------------------------------------------------------------------------
 	// AUXILARY METHODS
@@ -159,5 +156,3 @@ private:
 }  // namespace bst
 }  // namespace trees
 }  // namespace dsc
-
-#endif  // Trees_Bst_BST_h

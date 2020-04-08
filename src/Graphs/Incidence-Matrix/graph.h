@@ -1,5 +1,4 @@
-#ifndef Graphs_IncidenceMatrix_Graph_h
-#define Graphs_IncidenceMatrix_Graph_h
+#pragma once
 
 #include <iostream>
 #include <vector>
@@ -66,7 +65,3 @@ private:
 }  // namespace incmatrix
 }  // namespace graphs
 }  // namespace dsc
-
-#include "graph.cpp"
-
-#endif  // Graphs_IncidenceMatrix_Graph_h
