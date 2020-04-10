@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-
+#include <memory>
 
 namespace dsc {
 namespace lifo {
@@ -13,19 +13,11 @@ public:
 	// CONSTRUCTORS
 	// -------------------------------------------------------------------------
 	Stack(std::size_t maxSize) noexcept
-		: m_stack(new T[maxSize + 1])
+		: m_stack(std::make_unique<T []>(maxSize +1))
 		, m_maxSize(maxSize)
 		, m_size(0)
 		, m_top(0)
 	{
-	}
-
-	// -------------------------------------------------------------------------
-	// DESTRUCTORS
-	// -------------------------------------------------------------------------
-	~Stack()
-	{
-		delete[] m_stack;
 	}
 
 	// -------------------------------------------------------------------------
@@ -111,7 +103,7 @@ private:
 	// -------------------------------------------------------------------------
 	// DATA
 	// -------------------------------------------------------------------------
-	T* m_stack;
+	std::unique_ptr<T []> m_stack;
 	std::size_t m_maxSize;
 	std::size_t m_size;
 	int m_top;

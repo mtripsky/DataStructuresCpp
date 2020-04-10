@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-
+#include <memory>
 
 namespace dsc {
 namespace heap {
@@ -13,18 +13,10 @@ public:
 	// CONSTRUCTORS
 	// -------------------------------------------------------------------------
 	Heap(std::size_t maxSize) noexcept
-		: m_heap(new T[maxSize + 1])
+		: m_heap(std::make_unique<T []>(maxSize + 1))
 		, m_size(0)
 		, m_maxSize(maxSize)
 	{
-	}
-
-	// -------------------------------------------------------------------------
-	// DESTRUCTORS
-	// -------------------------------------------------------------------------
-	~Heap()
-	{
-		delete[] m_heap;
 	}
 
 	// -------------------------------------------------------------------------
@@ -131,7 +123,7 @@ private:
 	// -------------------------------------------------------------------------
 	// DATA
 	// -------------------------------------------------------------------------
-	T* m_heap;
+	std::unique_ptr<T []> m_heap;
 	std::size_t m_size;
 	std::size_t m_maxSize;
 };

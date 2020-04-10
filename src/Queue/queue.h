@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-
+#include <memory>
 
 namespace dsc {
 namespace fifo {
@@ -13,20 +13,12 @@ public:
 	// CONSTRUCTORS
 	// -------------------------------------------------------------------------
 	Queue(std::size_t maxSize) noexcept
-		: m_queue(new T[maxSize + 1])
+		: m_queue(std::make_unique<T []>(maxSize + 1))
 		, m_maxSize(maxSize)
 		, m_size(0)
 		, m_front(0)
 		, m_rear(0)
 	{
-	}
-
-	// -------------------------------------------------------------------------
-	// DESTRUCTORS
-	// -------------------------------------------------------------------------
-	~Queue()
-	{
-		delete[] m_queue;
 	}
 
 	// -------------------------------------------------------------------------
@@ -113,7 +105,7 @@ private:
 	// -------------------------------------------------------------------------
 	// DATA
 	// -------------------------------------------------------------------------
-	T* m_queue;
+	std::unique_ptr<T []> m_queue;
 	std::size_t m_maxSize;
 	std::size_t m_size;
 	int m_front;
