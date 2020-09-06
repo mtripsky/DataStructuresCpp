@@ -1,7 +1,7 @@
 # cmake -H. -Bbuild
 # cmake --build build
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.7)
 set(CMAKE_CXX_STANDARD 14)
 project(cpp-cmake-mines-ci)
 
