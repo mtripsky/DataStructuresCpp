@@ -261,11 +261,10 @@ SCENARIO("testing vector container for int")
         if (i == shift) {
           REQUIRE(sut[i] == 5);
         }
-        else if(i < shift){
+        else if (i < shift) {
           REQUIRE(sut[i] == i + 1);
         }
-        else
-        {
+        else {
           REQUIRE(sut[i] == i);
         }
       }
@@ -284,11 +283,10 @@ SCENARIO("testing vector container for int")
         if (i == shift) {
           REQUIRE(sut[i] == 5);
         }
-        else if(i < shift){
+        else if (i < shift) {
           REQUIRE(sut[i] == i + 1);
         }
-        else
-        {
+        else {
           REQUIRE(sut[i] == i);
         }
       }
@@ -307,11 +305,10 @@ SCENARIO("testing vector container for int")
         if (i == shift) {
           REQUIRE(sut[i] == 5);
         }
-        else if(i < shift){
+        else if (i < shift) {
           REQUIRE(sut[i] == i + 1);
         }
-        else
-        {
+        else {
           REQUIRE(sut[i] == i);
         }
       }
@@ -330,11 +327,10 @@ SCENARIO("testing vector container for int")
         if (i == shift) {
           REQUIRE(sut[i] == 5);
         }
-        else if(i < shift){
+        else if (i < shift) {
           REQUIRE(sut[i] == i + 1);
         }
-        else
-        {
+        else {
           REQUIRE(sut[i] == i);
         }
       }
@@ -350,14 +346,13 @@ SCENARIO("testing vector container for int")
       REQUIRE(*it == 5);
       REQUIRE(sut[shift] == 5);
       for (size_t i = 0; i < sut.Size(); ++i) {
-       if (i == shift) {
+        if (i == shift) {
           REQUIRE(sut[i] == 5);
         }
-        else if(i < shift){
+        else if (i < shift) {
           REQUIRE(sut[i] == i + 1);
         }
-        else
-        {
+        else {
           REQUIRE(sut[i] == i);
         }
       }
@@ -376,11 +371,10 @@ SCENARIO("testing vector container for int")
         if (i == shift) {
           REQUIRE(sut[i] == 5);
         }
-        else if(i < shift){
+        else if (i < shift) {
           REQUIRE(sut[i] == i + 1);
         }
-        else
-        {
+        else {
           REQUIRE(sut[i] == i);
         }
       }

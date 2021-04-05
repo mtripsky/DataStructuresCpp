@@ -65,9 +65,9 @@ public:
   }
 
   difference_type operator-(const ArrayIterator& other) const { return m_ptr - other.m_ptr; }
-  reference operator[](int index) { return *(m_ptr + index); }
-  pointer operator->() { return m_ptr; }
-  reference operator*() { return *m_ptr; }
+  reference       operator[](int index) { return *(m_ptr + index); }
+  pointer         operator->() { return m_ptr; }
+  reference       operator*() { return *m_ptr; }
 
   bool operator<(const ArrayIterator& other) const { return m_ptr < other.m_ptr; }
   bool operator<=(const ArrayIterator& other) const { return m_ptr <= other.m_ptr; }

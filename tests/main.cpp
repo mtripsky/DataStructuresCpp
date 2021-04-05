@@ -1,12 +1,12 @@
-#define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
+#define CATCH_CONFIG_MAIN // This tells Catch to provide a main() - only do this in one cpp file
 #include "../libs/catch.hpp"
 #include "ArrayTests/ArrayTests.cpp"
+#include "GraphsTests/Incidence-Matrix/GraphTests.cpp"
 #include "HeapTests/HeapTests.cpp"
+#include "LinkedListTests/OrderedLinkedListTests.cpp"
+#include "LinkedListTests/UnorderedLinkedListTests.cpp"
 #include "QueueTests/QueueTests.cpp"
 #include "StackTests/StackTests.cpp"
-#include "LinkedListTests/UnorderedLinkedListTests.cpp"
-#include "LinkedListTests/OrderedLinkedListTests.cpp"
-#include "GraphsTests/Incidence-Matrix/GraphTests.cpp"
+#include "TreesTests/BinaryTreeTests.cpp"
 #include "TreesTests/BstTests/BstTests.cpp"
 #include "VectorTests/VectorTests.cpp"
-#include "TreesTests/BinaryTreeTests.cpp"

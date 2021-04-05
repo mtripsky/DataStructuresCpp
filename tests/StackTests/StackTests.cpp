@@ -1,6 +1,6 @@
 #include "../../libs/catch.hpp"
 #include "../../libs/fakeit.hpp"
-#include "../../src/Stack/stack.h"
+#include "../../src/Stack/Stack.h"
 #include <stdio.h>
 #include <vector>
 
