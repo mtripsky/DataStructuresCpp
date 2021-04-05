@@ -1,0 +1,46 @@
+BasedOnStyle: llvm
+
+Language: Cpp
+# Force pointers to the type for C++.
+DerivePointerAlignment: false
+PointerAlignment: Left
+
+# Alignment
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+AllowAllParametersOfDeclarationOnNextLine: true
+AlwaysBreakTemplateDeclarations: true
+
+AllowAllParametersOfDeclarationOnNextLine: true
+BreakConstructorInitializersBeforeComma: true
+BreakConstructorInitializers: AfterColon
+ConstructorInitializerAllOnOneLineOrOnePerLine: false
+ConstructorInitializerIndentWidth: 2
+
+PenaltyBreakComment: 1000000
+
+KeepEmptyLinesAtTheStartOfBlocks: true
+
+ColumnLimit: 100
+
+FixNamespaceComments: true 
+
+SpaceBeforeAssignmentOperators: true
+
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterEnum: true
+  AfterStruct: false
+  AfterClass: false
+  SplitEmptyFunction: false
+  AfterCaseLabel: false
+  AfterFunction: true
+  AfterNamespace: false
+  AfterObjCDeclaration: true
+  BeforeCatch: true
+  BeforeElse: true
+  BeforeLambdaBody: true
+  BeforeWhile: false
+
+KeepEmptyLinesAtTheStartOfBlocks: true
+MaxEmptyLinesToKeep: 1
