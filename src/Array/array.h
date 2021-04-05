@@ -1,67 +1,77 @@
 #pragma once
 
 #include <cassert>
+#include "../Iterators/ArrayIterator.h"
 
-namespace dsc
-{
-  template <typename T, size_t S>
-  class Array
-  {
-    using iterator = T*;
-    using const_iterator = const T*;
+namespace dsc {
 
-  public:
-    constexpr size_t size() const { return S; }
-    bool empty() const {return S==0;}
-    void fill(const T& value)
-    {
-      for(size_t index = 0; index < S; ++index) 
-        m_data[index] = value;
-    }
-    void fill_n(const T& value, const size_t n)
-    {
-      if(n > S) 
-        throw("n is larger than the array size");
-      for(size_t index = 0; index < n; ++index) 
-        m_data[index] = value;
-    }
+template <typename T, size_t S>
+class Array {
+public:
+  using ValueType = T;
+  using Iterator = ArrayIterator<Array<T, S>>;
 
-    T& operator[](const size_t index) { 
-      assert(index < S);
-      return m_data[index]; 
-    }
-    const T& operator[](const size_t index) const { 
-      assert(index < S);
-      return m_data[index]; 
-    }
+public:
+  constexpr size_t Size() const { return S; }
+  bool Empty() const { return S == 0; }
+  void Fill(const T& value);
+  void Fill_n(const T& value, const size_t n);
 
-    T& at(const size_t index) {
-      if(index >= S)
-        throw std::out_of_range("array::at");
-      return m_data[index];
-    }
-    const T& at(const size_t index) const {
-      if(index >= S)
-        throw std::out_of_range("array::at");
-      return m_data[index];
-    }
+  T& operator[](const size_t index) {
+    assert(index < S);
+    return m_data[index];
+  }
 
-    T* data() { return m_data; }
-    const T* data() const { return m_data; }
+  const T& operator[](const size_t index) const {
+    assert(index < S);
+    return m_data[index];
+  }
 
-    T& back() { return m_data[S - 1]; }
-    const T& back() const { return m_data[S - 1]; }
+  T& At(const size_t index);
+  const T& At(const size_t index) const;
 
-    T& front() { return m_data[0]; }
-    const T& front() const { return m_data[0]; }
+  T* Data() { return m_data; }
+  const T* Data() const { return m_data; }
 
-    iterator begin() { return iterator(data()); }
-    const_iterator cbegin() const { return const_iterator(data()); }
-    iterator end() { return iterator(data() + S); }
-    const_iterator cend() const { return const_iterator(data() + S); }
+  T& Back() { return m_data[S - 1]; }
+  const T& Back() const { return m_data[S - 1]; }
+  T& Front() { return m_data[0]; }
+  const T& Front() const { return m_data[0]; }
 
-  private:
-    T m_data[S];
-  };
+  Iterator begin() { return Iterator(m_data); }
+  // const_iterator cbegin() const { return const_iterator(Data()); }
+  Iterator end() { return Iterator(m_data + S); }
+  //const_iterator cend() const { return const_iterator(Data() + S); }
 
+private:
+  T m_data[S];
+};
+
+template <typename T, size_t S>
+inline void Array<T, S>::Fill(const T& value) {
+  for (size_t index = 0; index < S; ++index)
+    m_data[index] = value;
+}
+
+template <typename T, size_t S>
+inline void Array<T, S>::Fill_n(const T& value, const size_t n) {
+  if (n > S)
+    throw("n is larger than the array size");
+  for (size_t index = 0; index < n; ++index)
+    m_data[index] = value;
+}
+
+template <typename T, size_t S>
+inline T& Array<T, S>::At(const size_t index) {
+  if (index >= S)
+    throw std::out_of_range("array::at");
+  return m_data[index];
+}
+
+template <typename T, size_t S>
+inline const T& Array<T, S>::At(const size_t index) const {
+  if (index >= S)
+    throw std::out_of_range("array::at");
+  return m_data[index];
+}
 } // namespace dsc
