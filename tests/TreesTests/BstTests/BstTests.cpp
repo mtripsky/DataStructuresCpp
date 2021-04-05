@@ -2,7 +2,7 @@
 #include <vector>
 #include "../../../libs/catch.hpp"
 #include "../../../libs/fakeit.hpp"
-#include "../../../src/Trees/Bst/node.h"
+#include "../../../src/Trees/node.h"
 #include "../../../src/Trees/Bst/bst.cpp"
 
 

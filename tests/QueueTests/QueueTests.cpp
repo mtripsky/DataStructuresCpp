@@ -2,7 +2,7 @@
 #include <vector>
 #include "../../libs/catch.hpp"
 #include "../../libs/fakeit.hpp"
-#include "../../src/Queue/queue.h"
+#include "../../src/Queue/Queue.h"
 
 
 namespace dsc {
@@ -19,59 +19,59 @@ SCENARIO("testing Queue constructor with int as data")
 		{
 			THEN("size should be 0")
 			{
-				REQUIRE(sut.size() == 0);
+				REQUIRE(sut.Size() == 0);
 			}
 		}
 	}
 }
 
-SCENARIO("testing Queue enqueue with int as data")
+SCENARIO("testing Queue push with int as data")
 {
 	GIVEN("constructing  queue of size 2")
 	{
 		auto sut = Queue<int>(2);
 
-		WHEN("enqueue 1")
+		WHEN("push 1")
 		{
-			auto result1 = sut.enqueue(1);
+			auto result1 = sut.Push(1);
 
 			THEN("size should be 1 and front element should be 1")
 			{
-				REQUIRE(sut.size() == 1);
-				REQUIRE(sut.front() == 1);
+				REQUIRE(sut.Size() == 1);
+				REQUIRE(sut.Front() == 1);
 				REQUIRE(result1);
 			}
 		}
 
-		WHEN("enqueue 1 and then 2")
+		WHEN("push 1 and then 2")
 		{
-			auto result1 = sut.enqueue(1);
-			auto result2 = sut.enqueue(2);
+			auto result1 = sut.Push(1);
+			auto result2 = sut.Push(2);
 
 			THEN("size should be 2 and front element should be 1")
 			{
-				REQUIRE(sut.size() == 2);
-				REQUIRE(sut.front() == 1);
+				REQUIRE(sut.Size() == 2);
+				REQUIRE(sut.Front() == 1);
 				REQUIRE(result1);
 				REQUIRE(result2);
 			}
 		}
 
-		WHEN("enqueue 1, 2 and then 3")
+		WHEN("push 1, 2 and then 3")
 		{
-			auto result1 = sut.enqueue(1);
-			auto result2 = sut.enqueue(2);
-			auto result3 = sut.enqueue(3);
+			auto result1 = sut.Push(1);
+			auto result2 = sut.Push(2);
+			auto result3 = sut.Push(3);
 
-			THEN("size should be 2 and front element should be 1 and last enqueue should be false "
+			THEN("size should be 2 and front element should be 1 and last push should be false "
 				 "and queue should be full")
 			{
-				REQUIRE(sut.size() == 2);
-				REQUIRE(sut.front() == 1);
+				REQUIRE(sut.Size() == 2);
+				REQUIRE(sut.Front() == 1);
 				REQUIRE(result1);
 				REQUIRE(result2);
 				REQUIRE_FALSE(result3);
-				REQUIRE(sut.isFull());
+				REQUIRE(sut.IsFull());
 			}
 		}
 	}
@@ -85,162 +85,162 @@ SCENARIO("testing Queue dequeue with int as data")
 
 		WHEN("dequeue from empty queue")
 		{
-			auto result1 = sut.dequeue();
+			auto result1 = sut.Pop();
 
 			THEN("dequeue methods should return false size should be 0")
 			{
-				REQUIRE(sut.size() == 0);
+				REQUIRE(sut.Size() == 0);
 				REQUIRE_FALSE(result1);
 			}
 		}
 
-		WHEN("enqueue from queue containing 1 and 2 (in order)")
+		WHEN("push from queue containing 1 and 2 (in order)")
 		{
-			sut.enqueue(1);
-			sut.enqueue(2);
-			auto result1 = sut.dequeue();
+			sut.Push(1);
+			sut.Push(2);
+			auto result1 = sut.Pop();
 
 			THEN("size should be 1 and front element should be 2")
 			{
-				REQUIRE(sut.size() == 1);
-				REQUIRE(sut.front() == 2);
+				REQUIRE(sut.Size() == 1);
+				REQUIRE(sut.Front() == 2);
 				REQUIRE(result1);
 			}
 		}
 
-		WHEN("enqueue three times from queue containing 1 and 2 (in order)")
+		WHEN("push three times from queue containing 1 and 2 (in order)")
 		{
-			sut.enqueue(1);
-			sut.enqueue(2);
-			auto result1 = sut.dequeue();
-			auto result2 = sut.dequeue();
-			auto result3 = sut.dequeue();
+			sut.Push(1);
+			sut.Push(2);
+			auto result1 = sut.Pop();
+			auto result2 = sut.Pop();
+			auto result3 = sut.Pop();
 
-			THEN("size should be 0 and front should throw exception and last enqueue should be "
+			THEN("size should be 0 and front should throw exception and last push should be "
 				 "false and queue should be empty")
 			{
-				REQUIRE(sut.size() == 0);
-				REQUIRE_THROWS_WITH(sut.front(), "Queue is empty");
+				REQUIRE(sut.Size() == 0);
+				REQUIRE_THROWS_WITH(sut.Front(), "Queue is empty");
 				REQUIRE(result1);
 				REQUIRE(result2);
 				REQUIRE_FALSE(result3);
-				REQUIRE(sut.isEmpty());
+				REQUIRE(sut.IsEmpty());
 			}
 		}
 	}
 }
 
-SCENARIO("testing Queue dequeue and enqueue to test circular buffer with int as data")
+SCENARIO("testing Queue dequeue and push to test circular buffer with int as data")
 {
 	GIVEN("constructing  queue of size 4 containing 1, 2, 3, 4 (in order)")
 	{
 		auto sut = Queue<int>(4);
-		sut.enqueue(1);
-		sut.enqueue(2);
-		sut.enqueue(3);
-		sut.enqueue(4);
+		sut.Push(1);
+		sut.Push(2);
+		sut.Push(3);
+		sut.Push(4);
 		std::cout << "Queue BEFORE: " << std::endl;
-		sut.print();
+		sut.Print();
 
 		WHEN("dequeue from queue and then queue 5 ")
 		{
-			sut.dequeue();
-			sut.enqueue(5);
+			sut.Pop();
+			sut.Push(5);
 			std::cout << "Queue AFTER dequeue and enqueu(5): " << std::endl;
-			sut.print();
+			sut.Print();
 
 			THEN("size should be 4, queue is full and front element should be 2")
 			{
-				REQUIRE(sut.size() == 4);
-				REQUIRE(sut.isFull());
-				REQUIRE_FALSE(sut.isEmpty());
-				REQUIRE(sut.front() == 2);
+				REQUIRE(sut.Size() == 4);
+				REQUIRE(sut.IsFull());
+				REQUIRE_FALSE(sut.IsEmpty());
+				REQUIRE(sut.Front() == 2);
 			}
 		}
 
 		WHEN("dequeue from queue twice and then queue 5 and 6")
 		{
-			sut.dequeue();
-			sut.enqueue(5);
-			sut.dequeue();
-			sut.enqueue(6);
+			sut.Pop();
+			sut.Push(5);
+			sut.Pop();
+			sut.Push(6);
 
 			std::cout << "Queue AFTER twice dequeue and enqueu(5) and enqueu(6): " << std::endl;
-			sut.print();
+			sut.Print();
 
 			THEN("size should be 4, queue is full and front element should be 3")
 			{
-				REQUIRE(sut.size() == 4);
-				REQUIRE(sut.isFull());
-				REQUIRE_FALSE(sut.isEmpty());
-				REQUIRE(sut.front() == 3);
+				REQUIRE(sut.Size() == 4);
+				REQUIRE(sut.IsFull());
+				REQUIRE_FALSE(sut.IsEmpty());
+				REQUIRE(sut.Front() == 3);
 			}
 		}
 
 		WHEN("dequeue from queue three times and then queue 5 and 6")
 		{
-			sut.dequeue();
-			sut.enqueue(5);
-			sut.dequeue();
-			sut.dequeue();
-			sut.enqueue(6);
+			sut.Pop();
+			sut.Push(5);
+			sut.Pop();
+			sut.Pop();
+			sut.Push(6);
 
 			std::cout << "Queue AFTER three times dequeue and enqueu(5, 6): " << std::endl;
-			sut.print();
+			sut.Print();
 
 			THEN("size should be 3, queue is not full and front element should be 4")
 			{
-				REQUIRE(sut.size() == 3);
-				REQUIRE_FALSE(sut.isFull());
-				REQUIRE_FALSE(sut.isEmpty());
-				REQUIRE(sut.front() == 4);
+				REQUIRE(sut.Size() == 3);
+				REQUIRE_FALSE(sut.IsFull());
+				REQUIRE_FALSE(sut.IsEmpty());
+				REQUIRE(sut.Front() == 4);
 			}
 		}
 
 		WHEN("dequeue from queue four times and then queue 5, 6, 7, 8")
 		{
-			sut.dequeue();
-			sut.dequeue();
-			sut.dequeue();
-			sut.dequeue();
-			sut.enqueue(5);
-			sut.enqueue(6);
-			sut.enqueue(7);
-			sut.enqueue(8);
+			sut.Pop();
+			sut.Pop();
+			sut.Pop();
+			sut.Pop();
+			sut.Push(5);
+			sut.Push(6);
+			sut.Push(7);
+			sut.Push(8);
 
 			std::cout << "Queue AFTER four times dequeue and enqueu(5, 6, 7, 8): " << std::endl;
-			sut.print();
+			sut.Print();
 
 			THEN("size should be 4, queue is full and front element should be 5")
 			{
-				REQUIRE(sut.size() == 4);
-				REQUIRE(sut.isFull());
-				REQUIRE_FALSE(sut.isEmpty());
-				REQUIRE(sut.front() == 5);
+				REQUIRE(sut.Size() == 4);
+				REQUIRE(sut.IsFull());
+				REQUIRE_FALSE(sut.IsEmpty());
+				REQUIRE(sut.Front() == 5);
 			}
 		}
 	}
 }
 
-SCENARIO("testing Queue dequeue and enqueue and order of front elements")
+SCENARIO("testing Queue dequeue and push and order of front elements")
 {
 	GIVEN("constructing  queue of size 4 containing 1, 2, 3, 4 (in order)")
 	{
 		auto sut = Queue<int>(4);
-		sut.enqueue(1);
-		sut.enqueue(2);
-		sut.enqueue(3);
-		sut.enqueue(4);
+		sut.Push(1);
+		sut.Push(2);
+		sut.Push(3);
+		sut.Push(4);
 		auto testOrderVector = std::vector<int>();
 
 		WHEN("dequeue from queue and then queue 5 ")
 		{
-			sut.dequeue();
-			sut.enqueue(5);
+			sut.Pop();
+			sut.Push(5);
 
-			while(!sut.isEmpty()) {
-				testOrderVector.push_back(sut.front());
-				sut.dequeue();
+			while(!sut.IsEmpty()) {
+				testOrderVector.push_back(sut.Front());
+				sut.Pop();
 			}
 
 			auto expectedOrderVector = std::vector<int>{2, 3, 4, 5};
@@ -253,14 +253,14 @@ SCENARIO("testing Queue dequeue and enqueue and order of front elements")
 
 		WHEN("dequeue from queue twice and then queue 5 and 6")
 		{
-			sut.dequeue();
-			sut.enqueue(5);
-			sut.dequeue();
-			sut.enqueue(6);
+			sut.Pop();
+			sut.Push(5);
+			sut.Pop();
+			sut.Push(6);
 
-			while(!sut.isEmpty()) {
-				testOrderVector.push_back(sut.front());
-				sut.dequeue();
+			while(!sut.IsEmpty()) {
+				testOrderVector.push_back(sut.Front());
+				sut.Pop();
 			}
 
 			auto expectedOrderVector = std::vector<int>{3, 4, 5, 6};
@@ -273,15 +273,15 @@ SCENARIO("testing Queue dequeue and enqueue and order of front elements")
 
 		WHEN("dequeue from queue three times and then queue 5 and 6")
 		{
-			sut.dequeue();
-			sut.enqueue(5);
-			sut.dequeue();
-			sut.dequeue();
-			sut.enqueue(6);
+			sut.Pop();
+			sut.Push(5);
+			sut.Pop();
+			sut.Pop();
+			sut.Push(6);
 
-			while(!sut.isEmpty()) {
-				testOrderVector.push_back(sut.front());
-				sut.dequeue();
+			while(!sut.IsEmpty()) {
+				testOrderVector.push_back(sut.Front());
+				sut.Pop();
 			}
 
 			auto expectedOrderVector = std::vector<int>{4, 5, 6};
@@ -294,18 +294,18 @@ SCENARIO("testing Queue dequeue and enqueue and order of front elements")
 
 		WHEN("dequeue from queue four times and then queue 5, 6, 7, 8")
 		{
-			sut.dequeue();
-			sut.dequeue();
-			sut.dequeue();
-			sut.dequeue();
-			sut.enqueue(5);
-			sut.enqueue(6);
-			sut.enqueue(7);
-			sut.enqueue(8);
+			sut.Pop();
+			sut.Pop();
+			sut.Pop();
+			sut.Pop();
+			sut.Push(5);
+			sut.Push(6);
+			sut.Push(7);
+			sut.Push(8);
 
-			while(!sut.isEmpty()) {
-				testOrderVector.push_back(sut.front());
-				sut.dequeue();
+			while(!sut.IsEmpty()) {
+				testOrderVector.push_back(sut.Front());
+				sut.Pop();
 			}
 
 			auto expectedOrderVector = std::vector<int>{5, 6, 7, 8};
