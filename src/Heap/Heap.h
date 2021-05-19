@@ -4,21 +4,14 @@
 #include <memory>
 
 namespace dsc {
-namespace heap {
 
 template <typename T>
 class Heap {
 public:
-  // -------------------------------------------------------------------------
-  // CONSTRUCTORS
-  // -------------------------------------------------------------------------
   Heap(std::size_t maxSize) noexcept :
     m_heap(std::make_unique<T[]>(maxSize + 1)), m_size(0), m_maxSize(maxSize)
   {}
 
-  // -------------------------------------------------------------------------
-  // METHODS
-  // -------------------------------------------------------------------------
   bool push(const T& elem)
   {
     if (isFull())
@@ -58,13 +51,8 @@ public:
   const size_t size() const { return m_size; }
 
 private:
-  // -------------------------------------------------------------------------
-  // AUXILARY METHODS
-  // -------------------------------------------------------------------------
-  size_t& updateSize() { return m_size; }
-
+  size_t&    updateSize() { return m_size; }
   const bool isFull() const { return m_size == m_maxSize; }
-
   const bool isEmpty() const { return m_size == 0; }
 
   bool moveElementUp()
@@ -102,13 +90,9 @@ private:
     return true;
   }
 
-  // -------------------------------------------------------------------------
-  // DATA
-  // -------------------------------------------------------------------------
   std::unique_ptr<T[]> m_heap;
   std::size_t          m_size;
   std::size_t          m_maxSize;
 };
 
-} // namespace heap
 } // namespace dsc

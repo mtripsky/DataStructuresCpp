@@ -4,7 +4,7 @@
 #include <iterator>
 #include <memory>
 
-#include "../Iterators/ArrayIterator.h"
+#include "Iterators/ArrayIterator.h"
 
 namespace dsc {
 
@@ -68,6 +68,11 @@ public:
   Iterator end() { return Iterator(m_data + m_size); }
   Iterator begin() { return Iterator(m_data); }
 
+  template <typename T1>
+  friend bool operator==(const Vector<T1>& v1, const Vector<T1>& v2);
+  template <typename T1>
+  friend bool operator!=(const Vector<T1>& v1, const Vector<T1>& v2);
+
 private:
   bool _ReAlloc(const size_t newCapacity)
   {
@@ -99,7 +104,7 @@ private:
 };
 
 template <typename T>
-inline bool Vector<T>::PushBack(const T& element)
+bool Vector<T>::PushBack(const T& element)
 {
   if (m_size >= m_capacity) {
     _ReAlloc(m_capacity + m_capacity / 2);
@@ -110,7 +115,7 @@ inline bool Vector<T>::PushBack(const T& element)
 }
 
 template <typename T>
-inline bool Vector<T>::PushBack(T&& element)
+bool Vector<T>::PushBack(T&& element)
 {
   if (m_size >= m_capacity) {
     _ReAlloc(m_capacity + m_capacity / 2);
@@ -122,7 +127,7 @@ inline bool Vector<T>::PushBack(T&& element)
 
 template <typename T>
 template <typename... Args>
-inline T& Vector<T>::EmplaceBack(Args&&... args)
+T& Vector<T>::EmplaceBack(Args&&... args)
 {
   if (m_size >= m_capacity) {
     _ReAlloc(m_capacity + m_capacity / 2);
@@ -136,7 +141,7 @@ inline T& Vector<T>::EmplaceBack(Args&&... args)
 }
 
 template <typename T>
-inline void Vector<T>::PopBack()
+void Vector<T>::PopBack()
 {
   if (m_size > 0) {
     --m_size;
@@ -145,7 +150,7 @@ inline void Vector<T>::PopBack()
 }
 
 template <typename T>
-inline void Vector<T>::Clear()
+void Vector<T>::Clear()
 {
   for (size_t i = 0; i < m_size; ++i) {
     m_data[i].~T();
@@ -155,7 +160,7 @@ inline void Vector<T>::Clear()
 }
 
 template <typename T>
-inline typename Vector<T>::Iterator Vector<T>::Insert(Iterator it, const T& element)
+typename Vector<T>::Iterator Vector<T>::Insert(Iterator it, const T& element)
 {
   const size_t dist1 = std::distance(begin(), it);
   if (m_size + 1 > m_capacity) {
@@ -178,7 +183,7 @@ inline typename Vector<T>::Iterator Vector<T>::Insert(Iterator it, const T& elem
 }
 
 template <typename T>
-inline typename Vector<T>::Iterator Vector<T>::Erase(Iterator it)
+typename Vector<T>::Iterator Vector<T>::Erase(Iterator it)
 {
   const size_t dist1 = std::distance(begin(), it);
 
@@ -190,6 +195,28 @@ inline typename Vector<T>::Iterator Vector<T>::Erase(Iterator it)
   it = begin() + dist1;
 
   return it;
+}
+
+template <typename T1>
+bool operator==(const Vector<T1>& v1, const Vector<T1>& v2)
+{
+  if (v1.Size() != v2.Size()) {
+    return false;
+  }
+
+  for (auto i = 0; i < v1.Size(); ++i) {
+    if (v1[i] != v2[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+template <typename T1>
+bool operator!=(const Vector<T1>& v1, const Vector<T1>& v2)
+{
+  return !(v1 == v2);
 }
 
 } // namespace dsc
