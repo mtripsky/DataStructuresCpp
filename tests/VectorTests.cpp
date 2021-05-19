@@ -1,7 +1,7 @@
-#include "../../libs/catch.hpp"
-#include "../../libs/fakeit.hpp"
-#include "../../src/Vector/Vector.h"
+#include "catch.hpp"
+#include "Vector/Vector.h"
 #include <algorithm>
+#include <iostream>
 #include <stdio.h>
 
 namespace dsc::tests {
@@ -459,6 +459,35 @@ SCENARIO("testing vector container for int")
   // 		// 	}
   //     // }
   // //   }
+}
+
+SCENARIO("testing comparison operators for Vector")
+{
+  GIVEN("vector v1 containing 1, 2, 3")
+  {
+    auto sut1 = Vector<int>{1, 2, 3};
+
+    WHEN("comparing to empty vector v2")
+    {
+      auto sut2 = Vector<int>();
+
+      THEN("vectors should not be equal") { REQUIRE(sut1 != sut2); }
+    }
+
+    WHEN("comparing to vector with same size but different elements")
+    {
+      auto sut2 = Vector<int>{1, 1, 1};
+
+      THEN("vectors should not be equal") { REQUIRE(sut1 != sut2); }
+    }
+
+    WHEN("comparing to vector with same size and same elements")
+    {
+      auto sut2 = Vector<int>{1, 2, 3};
+
+      THEN("vectors should be equal") { REQUIRE(sut1 == sut2); }
+    }
+  }
 }
 
 } // namespace dsc::tests

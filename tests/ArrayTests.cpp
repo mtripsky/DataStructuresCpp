@@ -1,6 +1,5 @@
-#include "../../libs/catch.hpp"
-#include "../../libs/fakeit.hpp"
-#include "../../src/Array/Array.h"
+#include "catch.hpp"
+#include "Array/Array.h"
 #include <stdio.h>
 
 namespace dsc::tests {

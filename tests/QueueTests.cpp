@@ -1,12 +1,8 @@
-#include "../../libs/catch.hpp"
-#include "../../libs/fakeit.hpp"
-#include "../../src/Queue/Queue.h"
+#include "catch.hpp"
+#include "Queue/Queue.h"
 #include <stdio.h>
-#include <vector>
 
-namespace dsc {
-namespace fifo {
-namespace tests {
+namespace dsc::tests {
 
 SCENARIO("testing Queue constructor with int as data")
 {
@@ -314,6 +310,4 @@ SCENARIO("testing Queue dequeue and push and order of front elements")
   }
 }
 
-} // namespace tests
-} // namespace fifo
-} // namespace dsc
+} // namespace dsc::tests

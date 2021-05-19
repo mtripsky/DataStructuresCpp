@@ -1,20 +1,15 @@
-#include "../../../libs/catch.hpp"
-#include "../../../libs/fakeit.hpp"
-#include "../../../src/Trees/Bst/bst.cpp"
-#include "../../../src/Trees/node.h"
+#include "catch.hpp"
+#include "Trees/BinarySearchTree.h"
+#include "Trees/Node.h"
 #include <stdio.h>
-#include <vector>
 
-namespace dsc {
-namespace trees {
-namespace bst {
-namespace tests {
+namespace dsc::tests {
 
-SCENARIO("testing BST insert method with int key and int data")
+SCENARIO("testing BinarySearchTree insert method with int key and int data")
 {
-  GIVEN("empty BST")
+  GIVEN("empty BinarySearchTree")
   {
-    auto sut = BST<int, int>();
+    auto sut = BinarySearchTree<int, int>();
 
     WHEN("not inserting anything")
     {
@@ -57,13 +52,13 @@ SCENARIO("testing BST insert method with int key and int data")
   }
 }
 
-SCENARIO("testing BST findMaxKey and findMinKey methods with int key and int data")
+SCENARIO("testing BinarySearchTree findMaxKey and findMinKey methods with int key and int data")
 {
-  GIVEN("empty BST")
+  GIVEN("empty BinarySearchTree")
   {
-    auto sut = BST<int, int>();
+    auto sut = BinarySearchTree<int, int>();
 
-    WHEN("findMaxKey in empty BST")
+    WHEN("findMaxKey in empty BinarySearchTree")
     {
       THEN("it should throw: Tree is empty")
       {
@@ -71,7 +66,7 @@ SCENARIO("testing BST findMaxKey and findMinKey methods with int key and int dat
       }
     }
 
-    WHEN("findMinKey in empty BST")
+    WHEN("findMinKey in empty BinarySearchTree")
     {
       THEN("it should throw: Tree is empty")
       {
@@ -117,11 +112,11 @@ SCENARIO("testing BST findMaxKey and findMinKey methods with int key and int dat
   }
 }
 
-SCENARIO("testing BST find method with int key and int data")
+SCENARIO("testing BinarySearchTree find method with int key and int data")
 {
-  GIVEN("empty BST")
+  GIVEN("empty BinarySearchTree")
   {
-    auto sut = BST<int, int>();
+    auto sut = BinarySearchTree<int, int>();
 
     WHEN("find node with key 10")
     {
@@ -131,9 +126,9 @@ SCENARIO("testing BST find method with int key and int data")
     }
   }
 
-  GIVEN("BST with 10 as root and 5 and 12 as children")
+  GIVEN("BinarySearchTree with 10 as root and 5 and 12 as children")
   {
-    auto sut = BST<int, int>();
+    auto sut = BinarySearchTree<int, int>();
     sut.insert(10, 10);
     sut.insert(5, 5);
     sut.insert(12, 12);
@@ -168,11 +163,11 @@ SCENARIO("testing BST find method with int key and int data")
   }
 }
 
-SCENARIO("testing BST remove method with int key and int data")
+SCENARIO("testing BinarySearchTree remove method with int key and int data")
 {
-  GIVEN("BST with 10 as root and 5 and 12 as children")
+  GIVEN("BinarySearchTree with 10 as root and 5 and 12 as children")
   {
-    auto sut = BST<int, int>();
+    auto sut = BinarySearchTree<int, int>();
     sut.insert(10, 10);
     sut.insert(5, 5);
     sut.insert(12, 12);
@@ -185,7 +180,7 @@ SCENARIO("testing BST remove method with int key and int data")
       std::cout << "REMOVE (5): " << std::endl;
       sut.printInOrder();
 
-      THEN("size of BST should be 2 and minKey should be 10")
+      THEN("size of BinarySearchTree should be 2 and minKey should be 10")
       {
         REQUIRE(sut.size() == 2);
         REQUIRE(sut.findMinKey() == 10);
@@ -200,7 +195,7 @@ SCENARIO("testing BST remove method with int key and int data")
       std::cout << "REMOVE (12): " << std::endl;
       sut.printInOrder();
 
-      THEN("size of BST should be 2")
+      THEN("size of BinarySearchTree should be 2")
       {
         REQUIRE(sut.size() == 2);
         REQUIRE(sut.findMaxKey() == 10);
@@ -208,9 +203,9 @@ SCENARIO("testing BST remove method with int key and int data")
     }
   }
 
-  GIVEN("BST with 10 as root and 5 and 12, 9, 3, 4, 2, 1")
+  GIVEN("BinarySearchTree with 10 as root and 5 and 12, 9, 3, 4, 2, 1")
   {
-    auto sut = BST<int, int>();
+    auto sut = BinarySearchTree<int, int>();
     sut.insert(10, 10); //					10
     sut.insert(5, 5);   //				5		12
     sut.insert(12, 12); //			3		9
@@ -228,7 +223,8 @@ SCENARIO("testing BST remove method with int key and int data")
       std::cout << "REMOVE (5): " << std::endl;
       sut.printInOrder();
 
-      THEN("size of BST should be 7 and it should not find node with key 5, maxKey=12 and minKey=1")
+      THEN("size of BinarySearchTree should be 7 and it should not find node with key 5, maxKey=12 "
+           "and minKey=1")
       {
         REQUIRE(sut.size() == 7);
         REQUIRE(sut.findNode(5) == nullptr);
@@ -245,7 +241,8 @@ SCENARIO("testing BST remove method with int key and int data")
       std::cout << "REMOVE (1): " << std::endl;
       sut.printInOrder();
 
-      THEN("size of BST should be 7 and it should not find node with key 1, maxKey=12 and minKey=2")
+      THEN("size of BinarySearchTree should be 7 and it should not find node with key 1, maxKey=12 "
+           "and minKey=2")
       {
         REQUIRE(sut.size() == 7);
         REQUIRE(sut.findNode(1) == nullptr);
@@ -262,8 +259,8 @@ SCENARIO("testing BST remove method with int key and int data")
       std::cout << "REMOVE (10): " << std::endl;
       sut.printInOrder();
 
-      THEN(
-          "size of BST should be 7 and it should not find node with key 10, maxKey=12 and minKey=1")
+      THEN("size of BinarySearchTree should be 7 and it should not find node with key 10, "
+           "maxKey=12 and minKey=1")
       {
         REQUIRE(sut.size() == 7);
         REQUIRE(sut.findNode(10) == nullptr);
@@ -274,11 +271,11 @@ SCENARIO("testing BST remove method with int key and int data")
   }
 }
 
-SCENARIO("testing BST depth method with int key and int data")
+SCENARIO("testing BinarySearchTree depth method with int key and int data")
 {
-  GIVEN("empty BST")
+  GIVEN("empty BinarySearchTree")
   {
-    auto sut = BST<int, int>();
+    auto sut = BinarySearchTree<int, int>();
 
     WHEN("not inserting anything")
     {
@@ -332,13 +329,14 @@ SCENARIO("testing BST depth method with int key and int data")
   }
 }
 
-SCENARIO("testing BST constructor using algorithm Minimal Tree from Cracking Coding Interview")
+SCENARIO("testing BinarySearchTree constructor using algorithm Minimal Tree from Cracking Coding "
+         "Interview")
 {
   GIVEN("ordered array of 5 numbers")
   {
     int  array[5] = {1, 2, 3, 4, 5};
     auto size     = sizeof(array) / sizeof(array[0]);
-    auto tree     = BST<int, int>(array, size);
+    auto tree     = BinarySearchTree<int, int>(array, size);
 
     WHEN("calling the algorithm")
     {
@@ -353,7 +351,7 @@ SCENARIO("testing BST constructor using algorithm Minimal Tree from Cracking Cod
   {
     int  array[7] = {3, 5, 9, 10, 11, 12, 13};
     auto size     = sizeof(array) / sizeof(array[0]);
-    auto tree     = BST<int, int>(array, size);
+    auto tree     = BinarySearchTree<int, int>(array, size);
 
     WHEN("calling the algorithm")
     {
@@ -368,7 +366,7 @@ SCENARIO("testing BST constructor using algorithm Minimal Tree from Cracking Cod
   {
     int  array[1] = {3};
     auto size     = sizeof(array) / sizeof(array[0]);
-    auto tree     = BST<int, int>(array, size);
+    auto tree     = BinarySearchTree<int, int>(array, size);
 
     WHEN("calling the algorithm")
     {
@@ -383,7 +381,7 @@ SCENARIO("testing BST constructor using algorithm Minimal Tree from Cracking Cod
   {
     int  array[3] = {1, 2, 3};
     auto size     = sizeof(array) / sizeof(array[0]);
-    auto tree     = BST<int, int>(array, size);
+    auto tree     = BinarySearchTree<int, int>(array, size);
 
     WHEN("calling the algorithm")
     {
@@ -398,7 +396,7 @@ SCENARIO("testing BST constructor using algorithm Minimal Tree from Cracking Cod
   {
     int  array[0] = {};
     auto size     = sizeof(array) / sizeof(array[0]);
-    auto tree     = BST<int, int>(array, size);
+    auto tree     = BinarySearchTree<int, int>(array, size);
 
     WHEN("calling the algorithm")
     {
@@ -410,7 +408,4 @@ SCENARIO("testing BST constructor using algorithm Minimal Tree from Cracking Cod
   }
 }
 
-} // namespace tests
-} // namespace bst
-} // namespace trees
-} // namespace dsc
+} // namespace dsc::tests
