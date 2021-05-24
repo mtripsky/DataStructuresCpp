@@ -1,16 +1,14 @@
-#include "../../../libs/catch.hpp"
-#include "../../../libs/fakeit.hpp"
-#include "../../../src/Graphs/Incidence-Matrix/graph.cpp"
+#include "catch.hpp"
+#include "Graphs/IncidenceMatrixGraph.h"
 #include <stdio.h>
-#include <vector>
 
-namespace dsc::graphs::incmatrix::tests {
+namespace dsc::tests {
 
 SCENARIO("testing Graph add_vertex with int as verticies")
 {
   GIVEN("graph")
   {
-    auto sut = Graph<int, int>();
+    auto sut = IncidenceMatrixGraph<int, int>();
 
     WHEN("do nothing")
     {
@@ -55,7 +53,7 @@ SCENARIO("testing Graph remove_vertex with int as verticies")
 {
   GIVEN("graph with 4 vertices")
   {
-    auto sut = Graph<int, int>();
+    auto sut = IncidenceMatrixGraph<int, int>();
     sut.add_vertex(0, true);
     sut.add_vertex(1, true);
     sut.add_vertex(2, true);
@@ -93,7 +91,7 @@ SCENARIO("testing Graph methods: add_edge and neighbors with int as verticies")
 {
   GIVEN("graph with 4 vertices")
   {
-    auto sut = Graph<int, int>();
+    auto sut = IncidenceMatrixGraph<int, int>();
     sut.add_vertex(0, true);
     sut.add_vertex(1, true);
     sut.add_vertex(2, true);
@@ -179,7 +177,7 @@ SCENARIO("testing Graph method adjacent with int as verticies")
 {
   GIVEN("graph with 4 vertices ")
   {
-    auto sut = Graph<int, int>();
+    auto sut = IncidenceMatrixGraph<int, int>();
     sut.add_vertex(0, false);
     sut.add_vertex(1, true);
     sut.add_vertex(2, false);
@@ -211,7 +209,7 @@ SCENARIO("testing Graph methods: remove_edge and neighbors with int as verticies
 {
   GIVEN("graph with 4 vertices and edges to itself and edges (0,1),(0,2),(2,0)")
   {
-    auto sut = Graph<int, int>();
+    auto sut = IncidenceMatrixGraph<int, int>();
     sut.add_vertex(0, true);
     sut.add_vertex(1, true);
     sut.add_vertex(2, true);
@@ -279,7 +277,7 @@ SCENARIO("testing Graph methods: get_vertex_value with int as verticies")
 {
   GIVEN("graph with 3 vertices")
   {
-    auto sut = Graph<int, int>();
+    auto sut = IncidenceMatrixGraph<int, int>();
     sut.add_vertex(0);
     sut.add_vertex(1);
     sut.add_vertex(2);
@@ -311,7 +309,7 @@ SCENARIO("testing Graph methods: set_vertex_value with int as verticies")
 {
   GIVEN("graph with 3 vertices")
   {
-    auto sut = Graph<int, int>();
+    auto sut = IncidenceMatrixGraph<int, int>();
     sut.add_vertex(0);
     sut.add_vertex(1);
     sut.add_vertex(2);
@@ -346,7 +344,7 @@ SCENARIO("testing Graph methods: set_edge_value and get_edge_value with int as v
 {
   GIVEN("graph with 3 vertices with edges (0,1),(0,2),(2,1)")
   {
-    auto sut = Graph<int, int>();
+    auto sut = IncidenceMatrixGraph<int, int>();
     sut.add_vertex(0, true);
     sut.add_vertex(1, true);
     sut.add_vertex(2, true);
@@ -397,4 +395,4 @@ SCENARIO("testing Graph methods: set_edge_value and get_edge_value with int as v
   }
 }
 
-} // namespace dsc::graphs::incmatrix::tests
+} // namespace dsc::tests

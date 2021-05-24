@@ -1,10 +1,51 @@
-#include "linkedList.h"
-#include "../node.h"
+#pragma once
+
+#include "Node.h"
+#include <iostream>
+#include <memory>
+
+namespace dsc {
 
 template <typename T>
-bool dsc::lists::unordered::LinkedList<T>::push(const T& data)
+class UnorderedList {
+public:
+  UnorderedList() noexcept : m_head(nullptr), m_tail(nullptr), m_size(0) {}
+
+  ~UnorderedList() { clean(); }
+
+  bool                  push(const T& data);
+  bool                  push_back(const T& data);
+  bool                  pop();
+  bool                  remove(const T& data);
+  const lists::Node<T>* back() const;
+  const lists::Node<T>* front() const;
+  void                  reverse();
+  void                  print() const;
+
+  size_t& size() { return m_size; }
+
+  const bool isEmpty() const { return m_head == nullptr; }
+
+private:
+  void clean()
+  {
+    while (m_head) {
+      m_head = std::move(m_head->next);
+    }
+    m_tail = m_head;
+  }
+
+  std::shared_ptr<lists::Node<T>> m_head;
+  std::shared_ptr<lists::Node<T>> m_tail;
+  std::size_t                     m_size;
+};
+
+} // namespace dsc
+
+template <typename T>
+bool dsc::UnorderedList<T>::push(const T& data)
 {
-  auto temp{std::make_shared<dsc::lists::Node<T>>(node(data))};
+  auto temp{std::make_shared<lists::Node<T>>(lists::node(data))};
 
   if (isEmpty()) {
     m_head = std::move(temp);
@@ -20,9 +61,9 @@ bool dsc::lists::unordered::LinkedList<T>::push(const T& data)
 }
 
 template <typename T>
-bool dsc::lists::unordered::LinkedList<T>::push_back(const T& data)
+bool dsc::UnorderedList<T>::push_back(const T& data)
 {
-  auto temp{std::make_shared<dsc::lists::Node<T>>(node(data))};
+  auto temp{std::make_shared<lists::Node<T>>(lists::node(data))};
 
   if (isEmpty()) {
     m_tail = std::move(temp);
@@ -40,7 +81,7 @@ bool dsc::lists::unordered::LinkedList<T>::push_back(const T& data)
 }
 
 template <typename T>
-bool dsc::lists::unordered::LinkedList<T>::pop()
+bool dsc::UnorderedList<T>::pop()
 {
   if (isEmpty()) {
     return true;
@@ -54,7 +95,7 @@ bool dsc::lists::unordered::LinkedList<T>::pop()
 }
 
 template <typename T>
-bool dsc::lists::unordered::LinkedList<T>::remove(const T& data)
+bool dsc::UnorderedList<T>::remove(const T& data)
 {
   auto temp = m_head;
 
@@ -89,19 +130,19 @@ bool dsc::lists::unordered::LinkedList<T>::remove(const T& data)
 }
 
 template <typename T>
-const dsc::lists::Node<T>* dsc::lists::unordered::LinkedList<T>::back() const
+const dsc::lists::Node<T>* dsc::UnorderedList<T>::back() const
 {
   return m_tail.get();
 }
 
 template <typename T>
-const dsc::lists::Node<T>* dsc::lists::unordered::LinkedList<T>::front() const
+const dsc::lists::Node<T>* dsc::UnorderedList<T>::front() const
 {
   return m_head.get();
 }
 
 template <typename T>
-void dsc::lists::unordered::LinkedList<T>::reverse()
+void dsc::UnorderedList<T>::reverse()
 {
   if (m_head != m_tail) {
     std::shared_ptr<dsc::lists::Node<T>> previous(nullptr);
@@ -120,7 +161,7 @@ void dsc::lists::unordered::LinkedList<T>::reverse()
 }
 
 template <typename T>
-void dsc::lists::unordered::LinkedList<T>::print() const
+void dsc::UnorderedList<T>::print() const
 {
   auto temp = m_head;
 

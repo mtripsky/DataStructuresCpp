@@ -4,7 +4,6 @@
 #include <memory>
 
 namespace dsc {
-namespace fifo {
 
 template <typename T>
 class Queue {
@@ -30,8 +29,10 @@ private:
   int                  m_rear;
 };
 
+} // namespace dsc
+
 template <typename T>
-bool Queue<T>::Push(const T& elem)
+bool dsc::Queue<T>::Push(const T& elem)
 {
   if (IsFull())
     return false;
@@ -50,7 +51,7 @@ bool Queue<T>::Push(const T& elem)
 }
 
 template <typename T>
-bool Queue<T>::Pop()
+bool dsc::Queue<T>::Pop()
 {
   if (IsEmpty()) {
     return false;
@@ -62,7 +63,7 @@ bool Queue<T>::Pop()
 }
 
 template <typename T>
-const T& Queue<T>::Front() const
+const T& dsc::Queue<T>::Front() const
 {
   if (IsEmpty()) {
     throw "Queue is empty";
@@ -72,7 +73,7 @@ const T& Queue<T>::Front() const
 }
 
 template <typename T>
-void Queue<T>::Print() const
+void dsc::Queue<T>::Print() const
 {
   if (IsEmpty())
     std::cout << "Queue is empty\n";
@@ -87,6 +88,3 @@ void Queue<T>::Print() const
     std::cout << std::endl;
   }
 }
-
-} // namespace fifo
-} // namespace dsc

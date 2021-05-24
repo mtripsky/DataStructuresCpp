@@ -3,8 +3,7 @@
 #include <iostream>
 #include <memory>
 
-namespace dsc {
-namespace lists {
+namespace dsc::lists {
 
 template <typename T>
 struct Node {
@@ -20,5 +19,4 @@ Node<T> node(T data)
   return Node<T>(data);
 }
 
-} // namespace lists
-} // namespace dsc
+} // namespace dsc::lists

@@ -1,13 +1,9 @@
-#include "../../libs/catch.hpp"
-#include "../../libs/fakeit.hpp"
-#include "../../src/Trees/BinaryTree.h"
-#include "../../src/Trees/node.h"
+#include "catch.hpp"
+#include "Trees/BinaryTree.h"
+#include "Trees/Node.h"
 #include <stdio.h>
-#include <vector>
 
-namespace dsc {
-namespace trees {
-namespace tests {
+namespace dsc::tests {
 
 SCENARIO("testing Binary Tree")
 {
@@ -58,6 +54,4 @@ SCENARIO("testing Binary Tree")
   }
 }
 
-} // namespace tests
-} // namespace trees
-} // namespace dsc
+} // namespace dsc::tests

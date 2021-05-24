@@ -1,12 +1,9 @@
-#include "../../libs/catch.hpp"
-#include "../../libs/fakeit.hpp"
-#include "../../src/Heap/Heap.h"
+#include "catch.hpp"
+#include "Heap/Heap.h"
+#include "Vector/Vector.h"
 #include <stdio.h>
-#include <vector>
 
-namespace dsc {
-namespace heap {
-namespace tests {
+namespace dsc::tests {
 
 SCENARIO("testing Heap constructor with int as data")
 {
@@ -87,7 +84,7 @@ SCENARIO("testing Heap push of general container with int as data")
 
     WHEN("pushing a vector containing 2")
     {
-      auto vec = std::vector<int>{2};
+      auto vec = Vector<int>{2};
       sut.push(vec.begin(), vec.end());
 
       THEN("size should be 1 and top element should be 2")
@@ -99,7 +96,7 @@ SCENARIO("testing Heap push of general container with int as data")
 
     WHEN("pushing a vector containing 2,4")
     {
-      auto vec = std::vector<int>{2, 4};
+      auto vec = Vector<int>{2, 4};
       sut.push(vec.begin(), vec.end());
 
       THEN("size should be 2 and top element should be 4")
@@ -111,7 +108,7 @@ SCENARIO("testing Heap push of general container with int as data")
 
     WHEN("pushing a vector containing 2,4,1")
     {
-      auto vec = std::vector<int>{2, 4, 1};
+      auto vec = Vector<int>{2, 4, 1};
       sut.push(vec.begin(), vec.end());
 
       THEN("size should be 3 and top element should be 4")
@@ -123,7 +120,7 @@ SCENARIO("testing Heap push of general container with int as data")
 
     WHEN("pushing a vector containing 2,4,1,6")
     {
-      auto vec = std::vector<int>{2, 4, 1, 6};
+      auto vec = Vector<int>{2, 4, 1, 6};
       sut.push(vec.begin(), vec.end());
 
       THEN("size should be 4 and top element should be 6")
@@ -140,17 +137,17 @@ SCENARIO("testing Heap push and pop with int as data")
   GIVEN("constructing  heap of maxSize = 6")
   {
     auto sut = Heap<int>(6);
-    auto vec = std::vector<int>{2, 4, 1, 6, 9, 3};
+    auto vec = Vector<int>{2, 4, 1, 6, 9, 3};
     sut.push(vec.begin(), vec.end());
 
     WHEN("loop over heap and pop every time the top element it should create sorted sequence "
          "9,6,4,3,2,1")
     {
-      auto expected = std::vector<int>{9, 6, 4, 3, 2, 1};
-      auto result   = std::vector<int>();
+      auto expected = Vector<int>{9, 6, 4, 3, 2, 1};
+      auto result   = Vector<int>();
 
       while (sut.size() > 0) {
-        result.push_back(sut.top());
+        result.PushBack(sut.top());
         sut.pop();
       }
 
@@ -163,6 +160,4 @@ SCENARIO("testing Heap push and pop with int as data")
   }
 }
 
-} // namespace tests
-} // namespace heap
-} // namespace dsc
+} // namespace dsc::tests

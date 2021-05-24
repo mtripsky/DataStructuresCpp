@@ -1,12 +1,9 @@
-#include "../../libs/catch.hpp"
-#include "../../libs/fakeit.hpp"
-#include "../../src/Stack/Stack.h"
+#include "catch.hpp"
+#include "Stack/Stack.h"
+#include "Vector/Vector.h"
 #include <stdio.h>
-#include <vector>
 
-namespace dsc {
-namespace lifo {
-namespace tests {
+namespace dsc::tests {
 
 SCENARIO("testing Stack constructor with int as data")
 {
@@ -31,7 +28,7 @@ SCENARIO("testing Stack push with int as data")
     {
       auto result1 = sut.push(1);
 
-      auto vec = std::array<int, 3>{1, 2, 3};
+      auto vec = Vector<int>{1, 2, 3};
       auto it  = vec.begin();
 
       THEN("size should be 1, is not full and top element should be 1")
@@ -319,6 +316,4 @@ SCENARIO("testing Stack pop and push and order of top elements")
   }
 }
 
-} // namespace tests
-} // namespace lifo
-} // namespace dsc
+} // namespace dsc::tests

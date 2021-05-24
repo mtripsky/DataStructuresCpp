@@ -1,19 +1,15 @@
-#include "../../libs/catch.hpp"
-#include "../../libs/fakeit.hpp"
-#include "../../src/LinkedList/Ordered/linkedList.cpp"
-#include "../../src/LinkedList/node.h"
+#include "catch.hpp"
+#include "LinkedList/Node.h"
+#include "LinkedList/OrderedList.h"
 #include <stdio.h>
 
-namespace dsc {
-namespace lists {
-namespace ordered {
-namespace tests {
+namespace dsc::tests {
 
 SCENARIO("testing OrderedList push method with int as data")
 {
   GIVEN("empty list")
   {
-    auto sut = LinkedList<int>();
+    auto sut = OrderedList<int>();
 
     WHEN("do nothing")
     {
@@ -73,7 +69,7 @@ SCENARIO("testing OrderedList reverse method with int as data")
 {
   GIVEN("empty list")
   {
-    auto sut = LinkedList<int>();
+    auto sut = OrderedList<int>();
 
     WHEN("push random data into list")
     {
@@ -107,7 +103,7 @@ SCENARIO("testing OrderedList reverse method with int as data")
 // {
 // 	GIVEN("empty list")
 // 	{
-// 		auto sut = LinkedList<int>();
+// 		auto sut = OrderedList<int>();
 //
 // 		WHEN("push_back data:1 into list")
 // 		{
@@ -171,7 +167,7 @@ SCENARIO("testing OrderedList reverse method with int as data")
 // {
 // 	GIVEN("empty list")
 // 	{
-// 		auto sut = LinkedList<int>();
+// 		auto sut = OrderedList<int>();
 //
 // 		WHEN("push_back data:1, 2 and then push 3 into list")
 // 		{
@@ -244,7 +240,7 @@ SCENARIO("testing OrderedList reverse method with int as data")
 // {
 // 	GIVEN("empty list")
 // 	{
-// 		auto sut = LinkedList<int>();
+// 		auto sut = OrderedList<int>();
 //
 // 		WHEN("pop from the list")
 // 		{
@@ -260,7 +256,7 @@ SCENARIO("testing OrderedList reverse method with int as data")
 //
 // 	GIVEN(" list with one node")
 // 	{
-// 		auto sut = LinkedList<int>();
+// 		auto sut = OrderedList<int>();
 // 		sut.push(1);
 //
 // 		WHEN("pop from the list")
@@ -277,7 +273,7 @@ SCENARIO("testing OrderedList reverse method with int as data")
 //
 // 	GIVEN(" list with two nodes")
 // 	{
-// 		auto sut = LinkedList<int>();
+// 		auto sut = OrderedList<int>();
 // 		sut.push(1);
 // 		sut.push(2);
 //
@@ -297,7 +293,7 @@ SCENARIO("testing OrderedList reverse method with int as data")
 //
 // 	GIVEN(" list with three nodes")
 // 	{
-// 		auto sut = LinkedList<int>();
+// 		auto sut = OrderedList<int>();
 // 		sut.push(1);
 // 		sut.push(2);
 // 		sut.push(3);
@@ -321,7 +317,7 @@ SCENARIO("testing OrderedList reverse method with int as data")
 // {
 // 	GIVEN(" list with one node")
 // 	{
-// 		auto sut = LinkedList<int>();
+// 		auto sut = OrderedList<int>();
 // 		sut.push(1);
 //
 // 		WHEN("remove data: 2 from the list")
@@ -350,7 +346,7 @@ SCENARIO("testing OrderedList reverse method with int as data")
 //
 // 	GIVEN(" list with four nodes")
 // 	{
-// 		auto sut = LinkedList<int>();  // 4->3->2->1
+// 		auto sut = OrderedList<int>();  // 4->3->2->1
 // 		sut.push(1);
 // 		sut.push(2);
 // 		sut.push(3);
@@ -383,7 +379,8 @@ SCENARIO("testing OrderedList reverse method with int as data")
 // 			std::cout << "UnorderedList After remove(1): " << std::endl;
 // 			sut.print();
 //
-// 			THEN("it should remove node with data:1, should return true, and list with size
+// 			THEN("it should remove node with data:1, should return true, and list with
+// size
 // 3
 // "
 // 				 "(front: 4, back 2)")
@@ -402,7 +399,8 @@ SCENARIO("testing OrderedList reverse method with int as data")
 // 			std::cout << "UnorderedList After remove(2): " << std::endl;
 // 			sut.print();
 //
-// 			THEN("it should remove node with data:2, should return true, and list with size
+// 			THEN("it should remove node with data:2, should return true, and list with
+// size
 // 3
 // "
 // 				 "(front: 4, back 1)")
@@ -421,7 +419,8 @@ SCENARIO("testing OrderedList reverse method with int as data")
 // 			std::cout << "UnorderedList After remove(3): " << std::endl;
 // 			sut.print();
 //
-// 			THEN("it should remove node with data:3, should return true, and list with size
+// 			THEN("it should remove node with data:3, should return true, and list with
+// size
 // 3
 // "
 // 				 "(front: 4, back 1)")
@@ -440,7 +439,8 @@ SCENARIO("testing OrderedList reverse method with int as data")
 // 			std::cout << "UnorderedList After remove(4): " << std::endl;
 // 			sut.print();
 //
-// 			THEN("it should remove node with data:4, should return true, and list with size
+// 			THEN("it should remove node with data:4, should return true, and list with
+// size
 // 3
 // "
 // 				 "(front: 3, back 1)")
@@ -458,7 +458,7 @@ SCENARIO("testing OrderedList reverse method with int as data")
 // {
 // 	GIVEN("empty list")
 // 	{
-// 		auto sut = LinkedList<int>();
+// 		auto sut = OrderedList<int>();
 //
 // 		WHEN("push data:1 into list")
 // 		{
@@ -502,7 +502,7 @@ SCENARIO("testing OrderedList reverse method with int as data")
 // {
 // 	GIVEN("empty list")
 // 	{
-// 		auto sut = LinkedList<int>();
+// 		auto sut = OrderedList<int>();
 //
 // 		WHEN("push data:1 into list")
 // 		{
@@ -546,7 +546,7 @@ SCENARIO("testing OrderedList reverse method with int as data")
 // {
 // 	GIVEN("empty list")
 // 	{
-// 		auto sut = LinkedList<int>();
+// 		auto sut = OrderedList<int>();
 //
 // 		WHEN("push data:1 into list")
 // 		{
@@ -596,7 +596,7 @@ SCENARIO("testing OrderedList reverse method with int as data")
 // {
 // 	GIVEN("empty list")
 // 	{
-// 		auto sut = LinkedList<int>();
+// 		auto sut = OrderedList<int>();
 //
 // 		WHEN("reverse list")
 // 		{
@@ -611,7 +611,7 @@ SCENARIO("testing OrderedList reverse method with int as data")
 //
 // 	GIVEN(" list: 1->")
 // 	{
-// 		auto sut = LinkedList<int>();
+// 		auto sut = OrderedList<int>();
 // 		sut.push(1);
 //
 // 		WHEN("reverse list")
@@ -629,7 +629,7 @@ SCENARIO("testing OrderedList reverse method with int as data")
 //
 // 	GIVEN(" list: 1->2")
 // 	{
-// 		auto sut = LinkedList<int>();
+// 		auto sut = OrderedList<int>();
 // 		sut.push(2);
 // 		sut.push(1);
 //
@@ -648,7 +648,7 @@ SCENARIO("testing OrderedList reverse method with int as data")
 //
 // 	GIVEN(" list: 1->2->3")
 // 	{
-// 		auto sut = LinkedList<int>();
+// 		auto sut = OrderedList<int>();
 // 		sut.push(3);
 // 		sut.push(2);
 // 		sut.push(1);
@@ -668,7 +668,7 @@ SCENARIO("testing OrderedList reverse method with int as data")
 //
 // 	GIVEN(" list: 1->2->3->4")
 // 	{
-// 		auto sut = LinkedList<int>();
+// 		auto sut = OrderedList<int>();
 // 		sut.push(4);
 // 		sut.push(3);
 // 		sut.push(2);
@@ -689,7 +689,7 @@ SCENARIO("testing OrderedList reverse method with int as data")
 //
 // 	GIVEN(" list: 1->2->3->4->5")
 // 	{
-// 		auto sut = LinkedList<int>();
+// 		auto sut = OrderedList<int>();
 // 		sut.push(5);
 // 		sut.push(4);
 // 		sut.push(3);
@@ -714,7 +714,4 @@ SCENARIO("testing OrderedList reverse method with int as data")
 // 	}
 // }
 
-} // namespace tests
-} // namespace ordered
-} // namespace lists
-} // namespace dsc
+} // namespace dsc::tests

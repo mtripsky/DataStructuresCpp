@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Iterators/ArrayIterator.h"
+#include "Iterators/ArrayIterator.h"
 #include <cassert>
 
 namespace dsc {
@@ -50,14 +50,14 @@ private:
 };
 
 template <typename T, size_t S>
-inline void Array<T, S>::Fill(const T& value)
+void Array<T, S>::Fill(const T& value)
 {
   for (size_t index = 0; index < S; ++index)
     m_data[index] = value;
 }
 
 template <typename T, size_t S>
-inline void Array<T, S>::Fill_n(const T& value, const size_t n)
+void Array<T, S>::Fill_n(const T& value, const size_t n)
 {
   if (n > S)
     throw("n is larger than the array size");
@@ -66,7 +66,7 @@ inline void Array<T, S>::Fill_n(const T& value, const size_t n)
 }
 
 template <typename T, size_t S>
-inline T& Array<T, S>::At(const size_t index)
+T& Array<T, S>::At(const size_t index)
 {
   if (index >= S)
     throw std::out_of_range("array::at");
@@ -74,7 +74,7 @@ inline T& Array<T, S>::At(const size_t index)
 }
 
 template <typename T, size_t S>
-inline const T& Array<T, S>::At(const size_t index) const
+const T& Array<T, S>::At(const size_t index) const
 {
   if (index >= S)
     throw std::out_of_range("array::at");
