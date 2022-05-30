@@ -6,4 +6,4 @@ echo build folder removed
 cmake -H. -Bbuild  
 cmake --build build
 
-./build/tests/dsc_tests
+#./build/tests/dsc_tests
