@@ -3,15 +3,15 @@ cmake_minimum_required(VERSION 3.19)
 set(CMAKE_CXX_STANDARD 20)
 
 set(UNIT_TEST_LIST
-  Array
-  BinarySearchTree
-  BinaryTree
-  Heap
-  IncidenceMatrixGraph
-  OrderedList
-  UnorderedList
-  Queue
-  Stack
+#  Array
+#  BinarySearchTree
+#  BinaryTree
+#  Heap
+#  IncidenceMatrixGraph
+#  OrderedList
+#  UnorderedList
+#  Queue
+#  Stack
   DynamicStack
   Vector)
  
