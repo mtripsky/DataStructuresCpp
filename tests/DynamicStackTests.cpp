@@ -3,38 +3,31 @@
 #include <stdio.h>
 #include <iostream>
 
-namespace dsc::tests {
+namespace dsc::stack::tests {
 
 struct TestObject {
   TestObject() : X(0)
   {
-    std::cout << "TestObject Constructor (1)" << std::endl;
     m_data = new int[5];
   }
   TestObject(int scalar) : X(scalar)
   {
-    std::cout << "TestObject Constructor (2)" << std::endl;
     m_data = new int[5];
   }
-  TestObject(const TestObject& other)
-  {
-    std::cout << "TestObject Copy Constructor" << std::endl;
-    m_data = new int[5];
-    X      = other.X;
-
-    for (size_t i = 0; i < 5; ++i)
-      m_data[i] = other.m_data[i];
-  }
+  TestObject(const TestObject& other) = delete;
+  //{
+  //  X      = other.X;
+  //  m_data = new int[5];
+  //  for (size_t i = 0; i < 5; ++i)
+  //    m_data[i] = other.m_data[i];
+  //}
   TestObject(TestObject&& other) : X(other.X)
   {
-    std::cout << "TestObject Move Constructor" << std::endl;
     m_data       = other.m_data;
     other.m_data = nullptr;
   }
   TestObject& operator=(const TestObject& other)
   {
-    std::cout << "TestObject Copy assign" << std::endl;
-
     X      = other.X;
     m_data = new int[5];
     for (size_t i = 0; i < 5; ++i)
@@ -44,7 +37,6 @@ struct TestObject {
   }
   TestObject& operator=(TestObject&& other)
   {
-    std::cout << "TestObject Move assign" << std::endl;
     X            = other.X;
     m_data       = other.m_data;
     other.m_data = nullptr;
@@ -53,78 +45,296 @@ struct TestObject {
   }
   ~TestObject()
   {
-    std::cout << "Address of array" << m_data << ", size: " << sizeof(m_data) << std::endl;
+    //std::cout << "destructor " << m_data << std::endl;
     delete[] m_data;
-    std::cout << "TestObject Destroyed" << std::endl;
   }
 
   friend std::ostream& operator<<(std::ostream& out, const TestObject& t)
   {
-    return out << t.X << "\n";
+    return out << t.X << " " << t.m_data << "\n";
   }
 
   int  X;
   int* m_data = nullptr;
 };
 
-// SCENARIO("testing Dynamic Stack push and pop on int as data")
-// {
-//   GIVEN("dynamic stack")
-//   {
-//     auto sut = DynamicStack<int>();
 
-//     WHEN("push twice")
-//     {
-//       sut.Push(1);
-//       sut.Push(2);
+SCENARIO("testing emplace with TestObject as data")
+{
+  GIVEN("dynamic stack")
+  {
+    auto sut = DynamicStack<TestObject>();
+  
+    WHEN("Emplace one object with data X=1 ") 
+    {
+      // there is a memory leak when t1 exists
+      //TestObject t1;
+      sut.Emplace(1);
 
-//       THEN("top element should be 2") { REQUIRE(sut.Top() == 2); }
-//       THEN("top element should be 1 after one pop")
-//       {
-//         sut.Pop();
-//         REQUIRE(sut.Top() == 1);
-//       }
-//     }
-//   }
-// }
+      THEN("top object should have X=1"){
+        REQUIRE(sut.Top().X == 1);
+      //  REQUIRE(t1.X == 1);
+        REQUIRE_FALSE(sut.Empty());
+
+        AND_THEN("after pop stack should be empty")
+        {
+          sut.Pop();
+          REQUIRE(sut.Empty());
+        }
+      }
+    }
+    WHEN("Emplace two objects with data X=1 and X=2") 
+    {
+      //TestObject t1, t2;
+      sut.Emplace(1);
+      sut.Emplace(2);
+
+      THEN("top object should have X=2"){
+        REQUIRE(sut.Top().X == 2);
+        //REQUIRE(t2.X == 2);
+        //REQUIRE(t1.X == 1);
+        REQUIRE_FALSE(sut.Empty());
+
+        AND_THEN("after pop, top object should have X=1")
+        {
+          sut.Pop();
+          REQUIRE(sut.Top().X == 1);
+          REQUIRE_FALSE(sut.Empty());
+
+          AND_THEN("after pop stack should be empty")
+          {
+            sut.Pop();
+            REQUIRE(sut.Empty());
+          }
+        }
+      }
+    }
+  }
+  GIVEN("dynamic stack and generator")
+  {
+    auto sut = DynamicStack<TestObject>();
+    auto range = GENERATE(2,100);
+
+    WHEN("Emplace TestObject " << range << " times")
+    {
+      for(auto i = 2; i <= range; ++i)
+      {
+        sut.Emplace(i);
+      }
+
+      THEN("top element should have X = " << range)
+      {
+        REQUIRE(sut.Top().X == range);
+        AND_THEN("running while loop until stack is empty should run " << range - 1 << " times")
+        {
+          int counter = 0;
+
+          while(!sut.Empty())
+          {
+            REQUIRE(sut.Top().X == range - counter );
+            sut.Pop();
+            ++counter;
+          }
+          REQUIRE(counter == range - 1);
+          REQUIRE(sut.Empty());
+        }
+      }
+    }
+  }
+}
+
+SCENARIO("testing Dynamic Stack push and pop on int as data")
+{
+  GIVEN("dynamic stack")
+  {
+    auto sut = DynamicStack<int>();
+    auto range = GENERATE(2,100);
+
+    WHEN("Push " << range << " times")
+    {
+      for(auto i = 2; i <= range; ++i)
+      {
+        sut.Push(i);
+      }
+
+      THEN("top element should be " << range)
+      {
+        REQUIRE(sut.Top() == range);
+        AND_THEN("running while loop until stack is empty should run " << range - 1 << " times")
+        {
+          int counter = 0;
+
+          while(!sut.Empty())
+          {
+            REQUIRE(sut.Top() == range - counter );
+            sut.Pop();
+            ++counter;
+          }
+          REQUIRE(counter == range - 1);
+          REQUIRE(sut.Empty());
+        }
+      }
+    }
+  }
+}
 
 SCENARIO("testing Dynamic Stack push and pop on TestObject as data")
 {
   GIVEN("dynamic stack")
   {
     auto sut = DynamicStack<TestObject>();
-
-    WHEN("push twice")
+  
+    WHEN("Push one object with data X=1 ") 
     {
-      //sut.Push(TestObject());
-      // to test whether they are moved from stack memory to heap
+      sut.Push(TestObject(1));
+
+      THEN("top object should have X=1"){
+        REQUIRE(sut.Top().X == 1);
+        REQUIRE_FALSE(sut.Empty());
+
+        AND_THEN("after pop stack should be empty")
+        {
+          sut.Pop();
+          REQUIRE(sut.Empty());
+        }
+      }
+    }
+    WHEN("Push two objects with data X=1 and X=2") 
+    {
+      sut.Push(TestObject(1));
+      sut.Push(TestObject(2));
+
+      THEN("top object should have X=2"){
+        REQUIRE(sut.Top().X == 2);
+        REQUIRE_FALSE(sut.Empty());
+
+        AND_THEN("after pop, top object should have X=1")
+        {
+          sut.Pop();
+          REQUIRE(sut.Top().X == 1);
+          REQUIRE_FALSE(sut.Empty());
+
+          AND_THEN("after pop stack should be empty")
+          {
+            sut.Pop();
+            REQUIRE(sut.Empty());
+          }
+        }
+      }
+    }
+  }
+  GIVEN("dynamic stack and generator")
+  {
+    auto sut = DynamicStack<TestObject>();
+    auto range = GENERATE(2,100);
+
+    WHEN("Push TestObject " << range << " times")
+    {
+      for(auto i = 2; i <= range; ++i)
       {
-        TestObject t1;
-        TestObject t2(2);
-        
-        //sut.Push(std::move(TestObject()));
-        sut.Push(t1);
-        sut.Push(t2);
-
-        // sut.Push(std::move(t2));
+        sut.Push(TestObject(i));
       }
-      THEN("top element should be t2 with 2 as X") { REQUIRE(sut.Top().X == 2); }
-      THEN("after pop it should return t2 with X = 2 and top should be t1 with X=0") { 
-        const auto t = sut.Pop();
-        REQUIRE(t.X == 2); 
-        REQUIRE(sut.Top().X == 0); 
-      }
-      // sut.Pop();
-      // THEN("top element should be t2 with 2 as X") { REQUIRE(sut.Top().X == 2); }
-      // THEN("top element should be t1 with 0 as X after one pop")
-      // {
-      //   sut.Pop();
 
-      //     REQUIRE(sut.Top().X == 0);
-      //   sut.Pop();
-      // }
+      THEN("top element should have X = " << range)
+      {
+        REQUIRE(sut.Top().X == range);
+        AND_THEN("running while loop until stack is empty should run " << range - 1 << " times")
+        {
+          int counter = 0;
+
+          while(!sut.Empty())
+          {
+            REQUIRE(sut.Top().X == range - counter );
+            sut.Pop();
+            ++counter;
+          }
+          REQUIRE(counter == range - 1);
+          REQUIRE(sut.Empty());
+        }
+      }
     }
   }
 }
 
-} // namespace dsc::tests
+SCENARIO("testing Dynamic Stack push and pop on TestObject pointers as data")
+{
+  GIVEN("dynamic stack of TestObject pointers and three TestObject pointers to objects")
+  {
+    auto sut = DynamicStack<TestObject*>();
+    TestObject* t1 = new TestObject(10);
+    TestObject* t2 = new TestObject(20);
+    TestObject* t3 = new TestObject(30);
+
+    WHEN("Push t1 and change X of t1")
+    {
+      sut.Push(t1);
+      t1->X = t1->X/10;
+      
+      THEN("top element should be t1 with 1 as X") { 
+        REQUIRE(sut.Top()->X == 1);
+        AND_THEN("after Pop stack should be empty")
+        {
+          sut.Pop();
+          REQUIRE(sut.Empty());
+        }
+      }
+    }
+
+    WHEN("Push t1 and t2 and change X of t1 and t2")
+    {
+      sut.Push(t1);
+      sut.Push(t2);
+      t1->X = t1->X/10;
+      t2->X = t2->X/10;
+
+      THEN("top element should be t2 with 2 as X") { 
+        REQUIRE(sut.Top()->X == 2);
+        AND_THEN("after Pop top element should be t1 with 1 as X")
+        {
+          sut.Pop();
+          REQUIRE(sut.Top()->X == 1);
+          AND_THEN("after Pop stack should be empty")
+          {
+            sut.Pop();
+            REQUIRE(sut.Empty());
+          }
+        }
+      }
+    }
+
+    WHEN("Push t1, t2 and t3 and change X of t1, t2 and t3")
+    {
+      sut.Push(t1);
+      sut.Push(t2);
+      sut.Push(t3);
+      t1->X = t1->X/10;
+      t2->X = t2->X/10;
+      t3->X = t3->X/10;
+
+      THEN("top element should be t3 with 3 as X") { 
+        REQUIRE(sut.Top()->X == 3);
+        AND_THEN("after Pop top element should be t2 with 2 as X")
+        {
+          sut.Pop();
+          REQUIRE(sut.Top()->X == 2);
+          AND_THEN("after Pop top element should be t1 with 1 as X")
+          {
+            sut.Pop();
+            REQUIRE(sut.Top()->X == 1);
+            AND_THEN("after Pop stack should be empty")
+            {
+              sut.Pop();
+              REQUIRE(sut.Empty());
+            }
+          }
+        }
+      }
+    }
+
+    delete t1;
+    delete t2;
+    delete t3;
+  }
+}
+
+} // namespace dsc::stack::tests
