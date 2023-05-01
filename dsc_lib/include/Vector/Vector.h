@@ -3,8 +3,7 @@
 #include <cassert>
 #include <iterator>
 #include <memory>
-
-#include "Iterators/ArrayIterator.h"
+#include <dsc/ArrayIterator.h>
 
 namespace dsc {
 

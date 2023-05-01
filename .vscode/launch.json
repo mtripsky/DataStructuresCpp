@@ -54,7 +54,7 @@
             "name": "LaunchTests",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/tests/dsc_tests",
+            "program": "${workspaceFolder}/dsc_lib_tests/build/dsc_tests",
             //"miDebuggerPath": "gdb",
             "args": [],
             "stopAtEntry": false,
@@ -73,7 +73,7 @@
                     "console": "externalTerminal",
                 }
             ],
-            "preLaunchTask": "MakeDebug"
+            "preLaunchTask": "CMakeDebugTests"
         }
     ]
 }

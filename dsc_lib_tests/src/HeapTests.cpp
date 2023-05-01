@@ -1,6 +1,6 @@
 #include "catch.hpp"
-#include "Heap/Heap.h"
-#include "Vector/Vector.h"
+#include <dsc/Heap.h>
+#include <dsc/Vector.h>
 #include <stdio.h>
 
 namespace dsc::tests {

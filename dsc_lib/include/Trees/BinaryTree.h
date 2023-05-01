@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Node.h"
+#include <dsc/Node.h>
 #include <iostream>
 #include <memory>
 #include <queue>

@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "Graphs/IncidenceMatrixGraph.h"
+#include <dsc/IncidenceMatrixGraph.h>
 #include <stdio.h>
 
 namespace dsc::tests {
