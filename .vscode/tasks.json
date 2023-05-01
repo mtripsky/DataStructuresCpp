@@ -1,0 +1,55 @@
+{
+    "tasks": [
+        {
+            "label": "CMake",
+            "type": "shell",
+            "command": "cmake",
+            "options": {
+                "cwd": "${workspaceFolder}/"
+            },
+            "args": [
+                "-H.",
+                "-Bbuild"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "removeBuildFolder"
+            ],
+        },
+        {
+            "label": "MakeDebug",
+            "type": "shell",
+            "command": "cmake",
+            "options": {
+                "cwd": "${workspaceFolder}/"
+            },
+            "args": [
+                "--build",
+                "build"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "CMake"
+            ],
+        },
+        {
+            "label": "removeBuildFolder",
+            "type": "shell",
+            "command": "rm",
+            "options": {
+                "cwd": "${workspaceFolder}/"
+            },
+            "args": [
+                "-rf",
+                "build"
+            ],
+        },
+    ],
+    "version": "2.0.0"
+}
