@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Iterators/ArrayIterator.h"
+#include <dsc/ArrayIterator.h>
 #include <cassert>
 
 namespace dsc {

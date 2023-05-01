@@ -1,6 +1,5 @@
 #include "catch.hpp"
-#include "LinkedList/Node.h"
-#include "LinkedList/UnorderedList.h"
+#include <dsc/UnorderedList.h>
 #include <stdio.h>
 
 namespace dsc::tests {

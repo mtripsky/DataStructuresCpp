@@ -1,0 +1,104 @@
+{
+    "tasks": [
+        {
+            "label": "MakeDebugLib",
+            "type": "shell",
+            "command": "cmake",
+            "options": {
+                "cwd": "${workspaceFolder}/dsc_lib"
+            },
+            "args": [
+                "-H.",
+                "-Bbuild",
+                "-DCMAKE_BUILD_TYPE=Debug"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "removeBuildAndInstallFolders_dsclib"
+            ],
+        },
+        {
+            "label": "CMakeDebugLib",
+            "type": "shell",
+            "command": "cmake",
+            "options": {
+                "cwd": "${workspaceFolder}/dsc_lib"
+            },
+            "args": [
+                "--build",
+                "build",
+                "--target",
+                "install"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "MakeDebugLib"
+            ],
+        },
+        {
+            "label": "removeBuildAndInstallFolders_dsclib",
+            "type": "shell",
+            "command": "rm -rf build && rm -rf install",
+            "options": {
+                "cwd": "${workspaceFolder}/dsc_lib"
+            },
+            "args": [],
+        },
+        {
+            "label": "MakeDebugTests",
+            "type": "shell",
+            "command": "cmake",
+            "options": {
+                "cwd": "${workspaceFolder}/dsc_lib_tests"
+            },
+            "args": [
+                "-H.",
+                "-Bbuild",
+                "-DCMAKE_BUILD_TYPE=Debug"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "removeBuildAndInstallFolders_dscTests",
+                "CMakeDebugLib"
+            ],
+        },
+        {
+            "label": "CMakeDebugTests",
+            "type": "shell",
+            "command": "cmake",
+            "options": {
+                "cwd": "${workspaceFolder}/dsc_lib_tests"
+            },
+            "args": [
+                "--build",
+                "build"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "MakeDebugTests"
+            ],
+        },
+        {
+            "label": "removeBuildAndInstallFolders_dscTests",
+            "type": "shell",
+            "command": "rm -rf build",
+            "options": {
+                "cwd": "${workspaceFolder}/dsc_lib_tests"
+            },
+            "args": [],
+        },
+    ],
+    "version": "2.0.0"
+}

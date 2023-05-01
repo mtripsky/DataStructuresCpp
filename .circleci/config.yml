@@ -17,16 +17,10 @@ jobs:
           command: "apt-get update && sudo apt-get install -y python3-pip"
       - run:
           name: Install CMAKE
-          command: "pip3 install cmake==3.20.2"
+          command: "pip3 install cmake==3.23.3"
       - run:
-          name: Creating Build Files
-          command: "cmake -H. -Bbuild"
-      - run:
-          name: Creating Binary Files
-          command: "cmake --build build"
-      - run:
-          name: Unit Testing
-          command: "./build/tests/dsc_tests"
+          name: Run unit tests application
+          command: "chmod a+x buildRun.sh && ./buildRun.sh"
       - run:
           name: Print the Current Time
           command: date

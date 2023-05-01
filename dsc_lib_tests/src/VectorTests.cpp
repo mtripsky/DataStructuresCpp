@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "Vector/Vector.h"
+#include <dsc/Vector.h>
 #include <algorithm>
 #include <iostream>
 #include <stdio.h>

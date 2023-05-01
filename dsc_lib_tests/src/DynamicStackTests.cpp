@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "Stack/DynamicStack.h"
+#include <dsc/DynamicStack.h>
 #include <stdio.h>
 #include <iostream>
 

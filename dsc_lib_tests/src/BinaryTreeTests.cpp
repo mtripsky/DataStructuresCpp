@@ -1,6 +1,5 @@
 #include "catch.hpp"
-#include "Trees/BinaryTree.h"
-#include "Trees/Node.h"
+#include <dsc/BinaryTree.h>
 #include <stdio.h>
 
 namespace dsc::tests {

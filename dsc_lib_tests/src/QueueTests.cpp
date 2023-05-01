@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "Queue/Queue.h"
+#include <dsc/Queue.h>
 #include <stdio.h>
 
 namespace dsc::tests {

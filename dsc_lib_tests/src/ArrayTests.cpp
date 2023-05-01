@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "Array/Array.h"
+#include <dsc/Array.h>
 #include <stdio.h>
 
 namespace dsc::tests {
