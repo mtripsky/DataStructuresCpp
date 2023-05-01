@@ -4,7 +4,7 @@
 #include <iostream>
 #include <stdio.h>
 
-namespace dsc::tests {
+namespace dsc::tests::vector {
 
 struct TestObject {
   TestObject() : X(0), Y(0) { m_data = new int[5]; }
@@ -13,9 +13,10 @@ struct TestObject {
   TestObject(const TestObject& other) = delete;
   TestObject(TestObject&& other) : X(other.X), Y(other.Y)
   {
+    std::cout << "TestObject Move Constructor" << std::endl;
+
     m_data       = other.m_data;
     other.m_data = nullptr;
-    // std::cout << "TestObject Move Constructor" << std::endl;
   }
   TestObject& operator=(const TestObject& other)
   {
@@ -67,17 +68,18 @@ SCENARIO("testing vector container for TestObject")
   {
     Vector<TestObject> sut;
     TestObject         t1;
-    TestObject         t2{2};
-    TestObject         t3{1, 2};
+    TestObject         t2{1};
+    TestObject         t3{2, 3};
 
     sut.PushBack(t1);
     sut.PushBack(t2);
     sut.PushBack(t3);
-
+    
     THEN("size should be 0 and capacity 2")
     {
       CHECK(sut.Size() == 3);
       CHECK(sut.Capacity() == 3);
+      CHECK(sut[1].X == 1);
     }
   }
 

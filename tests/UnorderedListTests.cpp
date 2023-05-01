@@ -100,8 +100,7 @@ SCENARIO("testing UnorderedList push_back method with int as data")
   }
 }
 
-SCENARIO(
-    "testing UnorderedList push and push_back methods combination to create list with int as data")
+SCENARIO("testing UnorderedList push and push_back methods combination with int as data")
 {
   GIVEN("empty list")
   {
@@ -151,8 +150,7 @@ SCENARIO(
       }
     }
 
-    WHEN(
-        "push_back data:1, push data:2, push_back data:3, push data:4 into list and remove 4 and 3")
+    WHEN("push_back:1, push:2, push_back:3, push:4 remove 4 and 3")
     {
       sut.push_back(1);
       sut.push(2);
@@ -613,5 +611,73 @@ SCENARIO("testing UnorderedList reverse method with int as data")
     }
   }
 }
+
+struct TestObject {
+  TestObject(int scalar = 0) : X(scalar)
+  {
+    std::cout << "TestObject Constructor" << std::endl;
+    m_data = new int[5];
+  }
+  TestObject(const TestObject& other)
+  {
+    std::cout << "TestObject Copy Constructor" << std::endl;
+    m_data = other.m_data;
+    X      = other.X;
+  }
+  TestObject(TestObject&& other) : X(other.X)
+  {
+    std::cout << "TestObject Move Constructor" << std::endl;
+    m_data       = other.m_data;
+    other.m_data = nullptr;
+  }
+  TestObject& operator=(const TestObject& other)
+  {
+    std::cout << "TestObject Copy assign" << std::endl;
+
+    X      = other.X;
+    m_data = new int[5];
+    for (size_t i = 0; i < 5; ++i)
+      m_data[i] = other.m_data[i];
+
+    return *this;
+  }
+  TestObject& operator=(TestObject&& other)
+  {
+    std::cout << "TestObject Move assign" << std::endl;
+    X            = other.X;
+    m_data       = other.m_data;
+    other.m_data = nullptr;
+
+    return *this;
+  }
+  ~TestObject()
+  {
+    delete[] m_data;
+    std::cout << "TestObject Destroyed" << std::endl;
+  }
+
+  int  X;
+  int* m_data = nullptr;
+};
+
+// SCENARIO("testing OrderedList with TestObject as data")
+// {
+//   GIVEN("empty list")
+//   {
+//     auto sut = UnorderedList<TestObject>();
+
+//     WHEN("push 3 test objects")
+//     {
+//       TestObject t1;
+//       sut.push(t1);
+//       // sut.push(TestObject(1));
+//       // sut.push(TestObject(2));
+
+//       // sut.pop();
+//       // sut.pop();
+//       // sut.pop();
+//     }
+//   }
+// }
 
 } // namespace dsc::tests
